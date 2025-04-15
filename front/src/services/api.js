@@ -1,14 +1,16 @@
 import axios from 'axios';
+export const API_URL = process.env.REACT_APP_API_URL;
 
-// Créer une instance axios avec une configuration de base
+// Création d'une instance axois avec la bonne URL de base
+// Ici nous utilisons explicitement le port 4000 où le serveur backend s'exécute
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/api',
+  baseURL: API_URL,
   headers: {
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+  },
 });
 
-// Intercepteur pour ajouter le token aux requêtes
+// Ajouter un intercepteur de requête pour ajouter le token d'authentification si nécessaire
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -22,49 +24,43 @@ api.interceptors.request.use(
   }
 );
 
-// Intercepteur pour gérer les erreurs de réponse
+// Ajouter un intercepteur de réponse pour gérer les erreurs globalement
 api.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (response) => response,
   (error) => {
-    // Gérer les erreurs d'authentification (token expiré, etc.)
+    // Afficher les détails de l'erreur dans la console pour le débogage
+    console.error('API Error:', error.response?.data || error.message);
+    
+    // Gérer les erreurs d'authentification
     if (error.response && error.response.status === 401) {
       localStorage.removeItem('token');
-      window.location.href = '/login';
+      // La logique de redirection pourrait être ajoutée ici
     }
+    
     return Promise.reject(error);
   }
 );
 
-// Services d'authentification
-export const authService = {
-  register: (userData) => api.post('/auth/register', userData),
-  login: (credentials) => api.post('/auth/login', credentials),
-  getMe: () => api.get('/auth/me'),
-  logout: () => {
-    localStorage.removeItem('token');
-    return api.get('/auth/logout');
-  },
-  updatePassword: (passwordData) => api.put('/auth/updatepassword', passwordData)
-};
-
-// Services de réservation
+// Services API
 export const bookingService = {
-  calculatePrice: (bookingData) => api.post('/bookings/calculate-price', bookingData),
   createBooking: (bookingData) => api.post('/bookings', bookingData),
-  getBookings: () => api.get('/bookings'),
   getBookingById: (id) => api.get(`/bookings/${id}`),
-  updateBookingStatus: (id, status) => api.put(`/bookings/${id}/status`, { status }),
-  cancelBooking: (id) => api.put(`/bookings/${id}/cancel`)
+  cancelBooking: (id, data) => api.delete(`/bookings/${id}`, { data }),
 };
 
-// Services utilisateur (pour l'administration)
-export const userService = {
-  getUsers: () => api.get('/users'),
-  getUser: (id) => api.get(`/users/${id}`),
-  updateUser: (id, userData) => api.put(`/users/${id}`, userData),
-  deleteUser: (id) => api.delete(`/users/${id}`)
+export const priceService = {
+  calculateEstimate: (routeData) => api.post('/price/estimate', routeData),
+};
+
+export const contactService = {
+  sendMessage: (messageData) => api.post('/contact', messageData),
+};
+
+export const authService = {
+  register: (userData) => api.post('/users/register', userData),
+  login: (credentials) => api.post('/users/login', credentials),
+  getProfile: () => api.get('/users/profile'),
+  updateProfile: (userData) => api.put('/users/profile', userData),
 };
 
 export default api;

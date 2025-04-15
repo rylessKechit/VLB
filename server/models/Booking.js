@@ -4,119 +4,116 @@ const BookingSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: false // Permettre les réservations sans compte utilisateur
-  },
-  firstName: {
-    type: String,
-    required: [true, 'Le prénom est requis']
-  },
-  lastName: {
-    type: String,
-    required: [true, 'Le nom est requis']
-  },
-  email: {
-    type: String,
-    required: [true, 'L\'email est requis'],
-    match: [
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      'Veuillez fournir un email valide'
-    ]
-  },
-  phone: {
-    type: String,
-    required: [true, 'Le numéro de téléphone est requis']
   },
   pickupAddress: {
-    type: String,
-    required: [true, 'L\'adresse de départ est requise']
+    text: {
+      type: String,
+      required: [true, 'Please provide pickup address'],
+    },
+    placeId: {
+      type: String,
+      required: [true, 'Place ID is required'],
+    },
+    location: {
+      type: {
+        type: String,
+        enum: ['Point'],
+        default: 'Point',
+      },
+      coordinates: {
+        type: [Number],
+        required: true,
+      },
+    },
   },
   dropoffAddress: {
-    type: String,
-    required: [true, 'L\'adresse d\'arrivée est requise']
+    text: {
+      type: String,
+      required: [true, 'Please provide dropoff address'],
+    },
+    placeId: {
+      type: String,
+      required: [true, 'Place ID is required'],
+    },
+    location: {
+      type: {
+        type: String,
+        enum: ['Point'],
+        default: 'Point',
+      },
+      coordinates: {
+        type: [Number],
+        required: true,
+      },
+    },
   },
-  pickupDate: {
+  pickupDateTime: {
     type: Date,
-    required: [true, 'La date de départ est requise']
-  },
-  pickupTime: {
-    type: String,
-    required: [true, 'L\'heure de départ est requise']
+    required: [true, 'Please provide pickup date and time'],
   },
   passengers: {
     type: Number,
-    required: [true, 'Le nombre de passagers est requis'],
-    min: [1, 'Au moins 1 passager est requis'],
-    max: [7, 'Maximum 7 passagers autorisés']
+    required: [true, 'Please provide number of passengers'],
+    min: 1,
+    max: 7,
   },
   luggage: {
     type: Number,
-    default: 0
-  },
-  serviceType: {
-    type: String,
-    enum: ['standard', 'airport', 'longDistance', 'vip'],
-    default: 'standard'
+    required: true,
+    default: 0,
   },
   roundTrip: {
     type: Boolean,
-    default: false
+    default: false,
   },
-  specialRequests: {
-    type: String
+  returnDateTime: {
+    type: Date,
   },
-  estimatedPrice: {
-    type: Number,
-    required: [true, 'Le prix estimé est requis']
-  },
-  distance: {
-    type: Number,
-    required: [true, 'La distance est requise']
-  },
-  duration: {
-    type: Number,
-    required: [true, 'La durée est requise']
+  price: {
+    amount: {
+      type: Number,
+      required: true,
+    },
+    currency: {
+      type: String,
+      default: 'EUR',
+    },
   },
   status: {
     type: String,
-    enum: ['pending', 'confirmed', 'in-progress', 'completed', 'cancelled'],
-    default: 'pending'
+    enum: ['pending', 'confirmed', 'completed', 'cancelled'],
+    default: 'pending',
   },
   paymentStatus: {
     type: String,
-    enum: ['pending', 'paid', 'refunded', 'failed'],
-    default: 'pending'
+    enum: ['pending', 'paid', 'failed'],
+    default: 'pending',
   },
-  paymentMethod: {
-    type: String,
-    enum: ['cash', 'card', 'paypal', ''],
-    default: ''
-  },
-  bookingReference: {
-    type: String,
-    unique: true
+  customerInfo: {
+    name: {
+      type: String,
+      required: [true, 'Please provide your name'],
+    },
+    email: {
+      type: String,
+      required: [true, 'Please provide your email'],
+      match: [
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+        'Please provide a valid email',
+      ],
+    },
+    phone: {
+      type: String,
+      required: [true, 'Please provide your phone number'],
+    },
+    specialRequests: {
+      type: String,
+    },
   },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
-});
-
-// Middleware pour générer une référence de réservation unique avant l'enregistrement
-BookingSchema.pre('save', async function(next) {
-  if (!this.isNew) {
-    return next();
-  }
-
-  // Générer une référence unique (format: TB-YYMMDD-XXXX)
-  const date = new Date();
-  const year = date.getFullYear().toString().slice(-2);
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const day = date.getDate().toString().padStart(2, '0');
-  const randomPart = Math.floor(1000 + Math.random() * 9000); // 4 chiffres aléatoires
-
-  this.bookingReference = `VLB-${year}${month}${day}-${randomPart}`;
-  
-  next();
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model('Booking', BookingSchema);

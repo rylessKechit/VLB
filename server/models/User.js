@@ -1,53 +1,47 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('../config/environment');
 
 const UserSchema = new mongoose.Schema({
-  firstName: {
+  name: {
     type: String,
-    required: [true, 'Le prénom est requis']
-  },
-  lastName: {
-    type: String,
-    required: [true, 'Le nom est requis']
+    required: [true, 'Please provide a name'],
   },
   email: {
     type: String,
-    required: [true, 'L\'email est requis'],
+    required: [true, 'Please provide an email'],
     unique: true,
     match: [
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      'Veuillez fournir un email valide'
-    ]
+      'Please provide a valid email',
+    ],
   },
   password: {
     type: String,
-    required: [true, 'Le mot de passe est requis'],
+    required: [true, 'Please add a password'],
     minlength: 6,
-    select: false
+    select: false,
   },
   phone: {
     type: String,
-    required: [true, 'Le numéro de téléphone est requis']
+    required: [true, 'Please provide a phone number'],
   },
   role: {
     type: String,
-    enum: ['user', 'admin'],
-    default: 'user'
+    enum: ['user', 'admin', 'driver'],
+    default: 'user',
   },
   resetPasswordToken: String,
   resetPasswordExpire: Date,
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
-  lastLogin: {
-    type: Date,
-    default: null
-  }
 });
 
-// Middleware pour hacher le mot de passe avant de sauvegarder
-UserSchema.pre('save', async function(next) {
+// Encrypt password using bcrypt
+UserSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
     next();
   }
@@ -56,8 +50,15 @@ UserSchema.pre('save', async function(next) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-// Méthode pour comparer les mots de passe
-UserSchema.methods.matchPassword = async function(enteredPassword) {
+// Sign JWT and return
+UserSchema.methods.getSignedJwtToken = function () {
+  return jwt.sign({ id: this._id }, config.jwtSecret, {
+    expiresIn: config.jwtExpire,
+  });
+};
+
+// Match user entered password to hashed password in database
+UserSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 

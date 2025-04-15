@@ -1,303 +1,347 @@
+const asyncHandler = require('express-async-handler');
 const Booking = require('../models/Booking');
-const Price = require('../models/Price');
-const { Client } = require('@googlemaps/google-maps-services-js');
+const GoogleMapsService = require('../services/googleMapsService');
+const nodemailer = require('nodemailer');
+const config = require('../config/environment');
 
-// Initialiser le client Google Maps
-const googleMapsClient = new Client({});
-
-// @desc    Calculer le prix d'un trajet
-// @route   POST /api/bookings/calculate-price
-// @access  Public
-exports.calculatePrice = async (req, res) => {
-  try {
-    const { origin, destination, serviceType = 'standard' } = req.body;
-
-    if (!origin || !destination) {
-      return res.status(400).json({
-        success: false,
-        message: 'Veuillez fournir une adresse de départ et d\'arrivée'
-      });
-    }
-
-    // Obtenir les tarifs en vigueur
-    const priceModel = await Price.findOne({ serviceType, active: true });
-
-    if (!priceModel) {
-      return res.status(404).json({
-        success: false,
-        message: 'Tarifs non disponibles pour ce type de service'
-      });
-    }
-
-    // Vérifier si la destination est une destination spéciale avec prix fixe
-    const specialDestination = priceModel.specialDestinations.find(
-      dest => destination.toLowerCase().includes(dest.name.toLowerCase())
-    );
-
-    if (specialDestination) {
-      return res.status(200).json({
-        success: true,
-        estimatedPrice: specialDestination.fixedPrice,
-        distance: 0, // La distance est fixe pour ces destinations
-        duration: 0  // La durée est fixe pour ces destinations
-      });
-    }
-
-    // Calculer la distance et la durée du trajet avec l'API Google Maps
-    const response = await googleMapsClient.distancematrix({
-      params: {
-        origins: [origin],
-        destinations: [destination],
-        mode: 'driving',
-        key: process.env.GOOGLE_MAPS_API_KEY
-      }
-    });
-
-    if (
-      !response.data.rows[0].elements[0] ||
-      response.data.rows[0].elements[0].status !== 'OK'
-    ) {
-      return res.status(400).json({
-        success: false,
-        message: 'Impossible de calculer la distance entre ces adresses'
-      });
-    }
-
-    // Extraire les informations de distance et de durée
-    const distance = response.data.rows[0].elements[0].distance.value / 1000; // Convertir en kilomètres
-    const duration = Math.ceil(response.data.rows[0].elements[0].duration.value / 60); // Convertir en minutes
-
-    // Calculer le prix estimé
-    let estimatedPrice = priceModel.basePrice + (distance * priceModel.pricePerKm);
-
-    // Appliquer le prix minimum si nécessaire
-    if (estimatedPrice < priceModel.minimumPrice) {
-      estimatedPrice = priceModel.minimumPrice;
-    }
-
-    // Arrondir le prix à l'euro supérieur
-    estimatedPrice = Math.ceil(estimatedPrice);
-
-    res.status(200).json({
-      success: true,
-      estimatedPrice,
-      distance: Math.round(distance * 10) / 10, // Arrondir à 1 décimale
-      duration
-    });
-  } catch (error) {
-    console.error('Erreur lors du calcul du prix:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Erreur lors du calcul du prix',
-      error: error.message
-    });
-  }
-};
-
-// @desc    Créer une nouvelle réservation
+// @desc    Create a new booking
 // @route   POST /api/bookings
 // @access  Public
-exports.createBooking = async (req, res) => {
-  try {
-    const {
-      firstName,
-      lastName,
-      email,
-      phone,
-      pickupAddress,
-      dropoffAddress,
-      pickupDate,
-      pickupTime,
-      passengers,
-      luggage,
-      serviceType,
-      roundTrip,
-      specialRequests,
-      estimatedPrice,
-      distance,
-      duration
-    } = req.body;
+exports.createBooking = asyncHandler(async (req, res) => {
+  const {
+    pickupAddress,
+    pickupPlaceId,
+    dropoffAddress,
+    dropoffPlaceId,
+    pickupDateTime,
+    passengers,
+    luggage,
+    roundTrip,
+    returnDateTime,
+    price,
+    customerInfo,
+  } = req.body;
 
-    // Créer la réservation
+  // Validate required fields
+  if (!pickupAddress || !pickupPlaceId || !dropoffAddress || !dropoffPlaceId || !pickupDateTime || !price || !customerInfo) {
+    res.status(400);
+    throw new Error('Please provide all required fields');
+  }
+
+  try {
+    // Get location coordinates from Google Maps
+    const pickupDetails = await GoogleMapsService.getPlaceDetails(pickupPlaceId);
+    const dropoffDetails = await GoogleMapsService.getPlaceDetails(dropoffPlaceId);
+
+    // Create booking
     const booking = await Booking.create({
-      // Si l'utilisateur est connecté, associer la réservation à son compte
-      user: req.user ? req.user.id : null,
-      firstName,
-      lastName,
-      email,
-      phone,
-      pickupAddress,
-      dropoffAddress,
-      pickupDate,
-      pickupTime,
-      passengers,
-      luggage,
-      serviceType,
-      roundTrip,
-      specialRequests,
-      estimatedPrice,
-      distance,
-      duration,
-      status: 'pending',
-      paymentStatus: 'pending'
+      pickupAddress: {
+        text: pickupAddress,
+        placeId: pickupPlaceId,
+        location: {
+          type: 'Point',
+          coordinates: [pickupDetails.location.lng, pickupDetails.location.lat],
+        },
+      },
+      dropoffAddress: {
+        text: dropoffAddress,
+        placeId: dropoffPlaceId,
+        location: {
+          type: 'Point',
+          coordinates: [dropoffDetails.location.lng, dropoffDetails.location.lat],
+        },
+      },
+      pickupDateTime: new Date(pickupDateTime),
+      passengers: passengers || 1,
+      luggage: luggage || 0,
+      roundTrip: roundTrip || false,
+      returnDateTime: returnDateTime ? new Date(returnDateTime) : undefined,
+      price: {
+        amount: price.amount,
+        currency: price.currency || 'EUR',
+      },
+      customerInfo,
     });
 
-    // Envoyer un email de confirmation (à implémenter)
-    // sendBookingConfirmationEmail(booking);
+    // Format date and time for notifications
+    const formattedPickupDate = new Date(pickupDateTime).toLocaleDateString('fr-FR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
+    
+    const formattedPickupTime = new Date(pickupDateTime).toLocaleTimeString('fr-FR', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
+    // Setup email transporter
+    const transporter = nodemailer.createTransport({
+      host: config.emailHost,
+      port: config.emailPort,
+      secure: config.emailSecure,
+      auth: {
+        user: config.emailUser,
+        pass: config.emailPassword,
+      },
+    });
+
+    // Email to driver
+    const driverMailOptions = {
+      from: `"Taxi VLB Website" <${config.emailUser}>`,
+      to: config.driverEmail,
+      subject: 'Nouvelle réservation de course',
+      html: `
+        <h1>Nouvelle réservation de course</h1>
+        <p><strong>Référence:</strong> ${booking._id}</p>
+        <p><strong>Client:</strong> ${customerInfo.name}</p>
+        <p><strong>Téléphone:</strong> ${customerInfo.phone}</p>
+        <p><strong>Email:</strong> ${customerInfo.email}</p>
+        <h2>Détails de la course</h2>
+        <p><strong>Adresse de départ:</strong> ${pickupAddress}</p>
+        <p><strong>Adresse d'arrivée:</strong> ${dropoffAddress}</p>
+        <p><strong>Date:</strong> ${formattedPickupDate}</p>
+        <p><strong>Heure:</strong> ${formattedPickupTime}</p>
+        <p><strong>Passagers:</strong> ${passengers || 1}</p>
+        <p><strong>Bagages:</strong> ${luggage || 0}</p>
+        <p><strong>Aller-retour:</strong> ${roundTrip ? 'Oui' : 'Non'}</p>
+        ${roundTrip && returnDateTime ? `<p><strong>Date de retour:</strong> ${new Date(returnDateTime).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</p>` : ''}
+        ${roundTrip && returnDateTime ? `<p><strong>Heure de retour:</strong> ${new Date(returnDateTime).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</p>` : ''}
+        <p><strong>Prix:</strong> ${price.amount} ${price.currency}</p>
+        ${customerInfo.specialRequests ? `<p><strong>Demandes spéciales:</strong> ${customerInfo.specialRequests}</p>` : ''}
+      `,
+    };
+
+    // Email to customer
+    const customerMailOptions = {
+      from: `"Taxi VLB" <${config.emailUser}>`,
+      to: customerInfo.email,
+      subject: 'Confirmation de votre réservation - Taxi VLB',
+      html: `
+        <h1>Confirmation de votre réservation</h1>
+        <p>Bonjour ${customerInfo.name},</p>
+        <p>Nous vous confirmons la réservation de votre course avec Taxi VLB.</p>
+        <h2>Détails de votre course</h2>
+        <p><strong>Référence:</strong> ${booking._id}</p>
+        <p><strong>Adresse de départ:</strong> ${pickupAddress}</p>
+        <p><strong>Adresse d'arrivée:</strong> ${dropoffAddress}</p>
+        <p><strong>Date:</strong> ${formattedPickupDate}</p>
+        <p><strong>Heure:</strong> ${formattedPickupTime}</p>
+        <p><strong>Passagers:</strong> ${passengers || 1}</p>
+        <p><strong>Bagages:</strong> ${luggage || 0}</p>
+        <p><strong>Aller-retour:</strong> ${roundTrip ? 'Oui' : 'Non'}</p>
+        ${roundTrip && returnDateTime ? `<p><strong>Date de retour:</strong> ${new Date(returnDateTime).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</p>` : ''}
+        ${roundTrip && returnDateTime ? `<p><strong>Heure de retour:</strong> ${new Date(returnDateTime).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</p>` : ''}
+        <p><strong>Prix estimé:</strong> ${price.amount} ${price.currency}</p>
+        <p>Votre chauffeur sera à l'adresse indiquée à l'heure prévue. Vous recevrez un SMS de confirmation avant la course.</p>
+        <p>Pour toute modification ou annulation, veuillez nous contacter au plus tôt au <a href="tel:+33600000000">+33 6 00 00 00 00</a>.</p>
+        <p>Merci de votre confiance et à bientôt,</p>
+        <p>L'équipe Taxi VLB</p>
+      `,
+    };
+
+    // Send emails
+    await transporter.sendMail(driverMailOptions);
+    await transporter.sendMail(customerMailOptions);
+
+    // Envoyer une notification WhatsApp
+    if (config.whatsappNotificationsEnabled) {
+      // Créer le message WhatsApp
+      const whatsappMessage = `
+🚖 *NOUVELLE RÉSERVATION* 🚖
+
+*Référence:* ${booking._id}
+*Client:* ${customerInfo.name}
+*Téléphone:* ${customerInfo.phone}
+*Email:* ${customerInfo.email}
+
+*DÉTAILS DE LA COURSE*
+*Départ:* ${pickupAddress}
+*Destination:* ${dropoffAddress}
+*Date:* ${formattedPickupDate}
+*Heure:* ${formattedPickupTime}
+*Passagers:* ${passengers || 1}
+*Bagages:* ${luggage || 0}
+*Aller-retour:* ${roundTrip ? 'Oui' : 'Non'}
+*Prix:* ${price.amount} ${price.currency}
+
+${customerInfo.specialRequests ? `*Demandes spéciales:* ${customerInfo.specialRequests}` : ''}
+`;
+
+      try {
+        // Vérifier que le service WhatsApp est prêt
+        const whatsappStatus = whatsappService.getStatus();
+        
+        if (whatsappStatus.isReady) {
+          // Envoyer le message via whatsapp-web.js
+          const result = await whatsappService.sendMessage(config.driverPhoneNumber, whatsappMessage);
+          
+          if (result.success) {
+            console.log('Notification WhatsApp envoyée avec succès');
+          } else {
+            console.warn('Impossible d\'envoyer la notification WhatsApp:', result.error);
+          }
+        } else {
+          console.warn(`Service WhatsApp non prêt (${whatsappStatus.status}). Notification non envoyée.`);
+        }
+      } catch (error) {
+        console.error('Erreur lors de l\'envoi de la notification WhatsApp:', error);
+        // Ne pas échouer la réponse si la notification WhatsApp échoue
+      }
+    }
 
     res.status(201).json({
       success: true,
-      booking
+      data: booking,
+      message: 'Votre réservation a été enregistrée avec succès. Vous recevrez un email de confirmation.',
     });
   } catch (error) {
-    console.error('Erreur lors de la création de la réservation:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Erreur lors de la création de la réservation',
-      error: error.message
-    });
+    console.error('Booking error:', error);
+    res.status(500);
+    throw new Error(`Failed to create booking: ${error.message}`);
   }
-};
+});
 
-// @desc    Obtenir toutes les réservations
+// @desc    Get booking by ID
+// @route   GET /api/bookings/:id
+// @access  Public
+exports.getBookingById = asyncHandler(async (req, res) => {
+  const booking = await Booking.findById(req.params.id);
+
+  if (!booking) {
+    res.status(404);
+    throw new Error('Booking not found');
+  }
+
+  res.status(200).json({
+    success: true,
+    data: booking,
+  });
+});
+
+// @desc    Get all bookings (admin)
 // @route   GET /api/bookings
 // @access  Private/Admin
-exports.getBookings = async (req, res) => {
-  try {
-    // Si l'utilisateur est un admin, récupérer toutes les réservations
-    // Sinon, récupérer uniquement les réservations de l'utilisateur
-    const query = req.user.role === 'admin' ? {} : { user: req.user.id };
-
-    const bookings = await Booking.find(query)
-      .sort({ createdAt: -1 }) // Tri par date de création (plus récent d'abord)
-      .populate('user', 'firstName lastName email');
-
-    res.status(200).json({
-      success: true,
-      count: bookings.length,
-      bookings
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: 'Erreur lors de la récupération des réservations',
-      error: error.message
-    });
+exports.getAllBookings = asyncHandler(async (req, res) => {
+  // Add pagination
+  const page = parseInt(req.query.page, 10) || 1;
+  const limit = parseInt(req.query.limit, 10) || 10;
+  const startIndex = (page - 1) * limit;
+  
+  // Filter options
+  const filterOptions = {};
+  
+  if (req.query.status) {
+    filterOptions.status = req.query.status;
   }
-};
-
-// @desc    Obtenir une réservation par ID
-// @route   GET /api/bookings/:id
-// @access  Private
-exports.getBookingById = async (req, res) => {
-  try {
-    const booking = await Booking.findById(req.params.id)
-      .populate('user', 'firstName lastName email');
-
-    if (!booking) {
-      return res.status(404).json({
-        success: false,
-        message: 'Réservation non trouvée'
-      });
-    }
-
-    // Vérifier si l'utilisateur est autorisé à accéder à cette réservation
-    if (req.user.role !== 'admin' && (!booking.user || booking.user.toString() !== req.user.id)) {
-      return res.status(403).json({
-        success: false,
-        message: 'Non autorisé à accéder à cette réservation'
-      });
-    }
-
-    res.status(200).json({
-      success: true,
-      booking
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: 'Erreur lors de la récupération de la réservation',
-      error: error.message
-    });
+  
+  if (req.query.date) {
+    const startDate = new Date(req.query.date);
+    startDate.setHours(0, 0, 0, 0);
+    
+    const endDate = new Date(req.query.date);
+    endDate.setHours(23, 59, 59, 999);
+    
+    filterOptions.pickupDateTime = {
+      $gte: startDate,
+      $lte: endDate,
+    };
   }
-};
 
-// @desc    Mettre à jour le statut d'une réservation
-// @route   PUT /api/bookings/:id/status
+  const bookings = await Booking.find(filterOptions)
+    .sort({ pickupDateTime: -1 })
+    .limit(limit)
+    .skip(startIndex);
+
+  const total = await Booking.countDocuments(filterOptions);
+
+  res.status(200).json({
+    success: true,
+    count: bookings.length,
+    pagination: {
+      total,
+      page,
+      pages: Math.ceil(total / limit),
+    },
+    data: bookings,
+  });
+});
+
+// @desc    Update booking status
+// @route   PUT /api/bookings/:id
 // @access  Private/Admin
-exports.updateBookingStatus = async (req, res) => {
-  try {
-    const { status } = req.body;
+exports.updateBookingStatus = asyncHandler(async (req, res) => {
+  const { status } = req.body;
 
-    const booking = await Booking.findById(req.params.id);
-
-    if (!booking) {
-      return res.status(404).json({
-        success: false,
-        message: 'Réservation non trouvée'
-      });
-    }
-
-    // Mettre à jour le statut
-    booking.status = status;
-    await booking.save();
-
-    res.status(200).json({
-      success: true,
-      booking
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: 'Erreur lors de la mise à jour du statut de la réservation',
-      error: error.message
-    });
+  if (!['pending', 'confirmed', 'completed', 'cancelled'].includes(status)) {
+    res.status(400);
+    throw new Error('Invalid status value');
   }
-};
 
-// @desc    Annuler une réservation
-// @route   PUT /api/bookings/:id/cancel
-// @access  Private
-exports.cancelBooking = async (req, res) => {
-  try {
-    const booking = await Booking.findById(req.params.id);
+  const booking = await Booking.findById(req.params.id);
 
-    if (!booking) {
-      return res.status(404).json({
-        success: false,
-        message: 'Réservation non trouvée'
-      });
-    }
-
-    // Vérifier si l'utilisateur est autorisé à annuler cette réservation
-    if (req.user.role !== 'admin' && (!booking.user || booking.user.toString() !== req.user.id)) {
-      return res.status(403).json({
-        success: false,
-        message: 'Non autorisé à annuler cette réservation'
-      });
-    }
-
-    // Vérifier si la réservation peut être annulée
-    if (['completed', 'cancelled'].includes(booking.status)) {
-      return res.status(400).json({
-        success: false,
-        message: `La réservation ne peut pas être annulée car elle est déjà ${booking.status === 'completed' ? 'terminée' : 'annulée'}`
-      });
-    }
-
-    // Mettre à jour le statut
-    booking.status = 'cancelled';
-    await booking.save();
-
-    res.status(200).json({
-      success: true,
-      booking
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: 'Erreur lors de l\'annulation de la réservation',
-      error: error.message
-    });
+  if (!booking) {
+    res.status(404);
+    throw new Error('Booking not found');
   }
-};
+
+  booking.status = status;
+  
+  if (status === 'confirmed') {
+    // Send confirmation email/SMS to customer
+    // Implementation would go here
+  }
+
+  await booking.save();
+
+  res.status(200).json({
+    success: true,
+    data: booking,
+  });
+});
+
+// @desc    Cancel booking
+// @route   DELETE /api/bookings/:id
+// @access  Public (with validation)
+exports.cancelBooking = asyncHandler(async (req, res) => {
+  const { email, bookingReference } = req.body;
+
+  if (!email || !bookingReference) {
+    res.status(400);
+    throw new Error('Please provide email and booking reference');
+  }
+
+  const booking = await Booking.findById(req.params.id);
+
+  if (!booking) {
+    res.status(404);
+    throw new Error('Booking not found');
+  }
+
+  // Validate customer email
+  if (booking.customerInfo.email !== email) {
+    res.status(401);
+    throw new Error('Unauthorized');
+  }
+
+  // Check if cancellation is allowed (e.g., not too close to pickup time)
+  const now = new Date();
+  const pickupTime = new Date(booking.pickupDateTime);
+  const hoursDifference = (pickupTime - now) / (1000 * 60 * 60);
+
+  if (hoursDifference < 2) {
+    res.status(400);
+    throw new Error('Cancellation is only allowed at least 2 hours before pickup time');
+  }
+
+  booking.status = 'cancelled';
+  await booking.save();
+
+  // Send cancellation email
+  // Implementation would go here
+
+  res.status(200).json({
+    success: true,
+    message: 'Booking cancelled successfully',
+  });
+});

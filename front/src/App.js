@@ -1,47 +1,48 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
-
-// Contexts
-import { AuthProvider } from './context/AuthContext';
-import { BookingProvider } from './context/BookingContext';
-
-// Layout Components
-import Header from './components/Layout/Header';
-import Footer from './components/Layout/Footer';
-
-// Pages
+import { useEffect, useState } from 'react';
+import Header from './components/common/Header';
+import Footer from './components/common/Footer';
 import HomePage from './pages/HomePage';
-import AirportTransfersPage from './pages/AirportTransfersPage';
+import AirportTransferPage from './pages/AirportTransferPage';
 import LongDistancePage from './pages/LongDistancePage';
-import CustomTripsPage from './pages/CustomTripsPage';
-import BookingPage from './pages/BookingPage';
 import ContactPage from './pages/ContactPage';
-import NotFoundPage from './pages/NotFoundPage';
+import FleetPage from './pages/FleetPage';
+import AboutPage from './pages/AboutPage';
+
+import './styles/global.css';
+import './styles/components/VehicleSelector.css';
+import './styles/components/BookingForm.css';
+import './styles/components/BookingSuccess.css';
+import './styles/pages/ServicePage.css';
+import './styles/pages/FleetPage.css';
+import './styles/pages/AboutPage.css';
+import './animations.js'
 
 function App() {
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Scroll to top when page changes
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    <AuthProvider>
-      <BookingProvider>
-        <Router>
-          <div className="App">
-            <Header />
-            <main className="main-content">
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/airport-transfers" element={<AirportTransfersPage />} />
-                <Route path="/long-distance" element={<LongDistancePage />} />
-                <Route path="/custom-trips" element={<CustomTripsPage />} />
-                <Route path="/booking" element={<BookingPage />} />
-                <Route path="/contact" element={<ContactPage />} />
-                <Route path="*" element={<NotFoundPage />} />
-              </Routes>
-            </main>
-            <Footer />
-          </div>
-        </Router>
-      </BookingProvider>
-    </AuthProvider>
+    <Router>
+      <div className={darkMode ? 'dark-mode' : ''}>
+        <Header darkMode={darkMode} setDarkMode={setDarkMode} />
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/services-aeroport-gare" element={<AirportTransferPage />} />
+            <Route path="/services-longue-distance" element={<LongDistancePage />} />
+            <Route path="/flotte-vehicules" element={<FleetPage />} />
+            <Route path="/a-propos" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

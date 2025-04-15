@@ -1,125 +1,147 @@
+const asyncHandler = require('express-async-handler');
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+const config = require('../config/environment');
 
-// @desc    Obtenir tous les utilisateurs
-// @route   GET /api/users
-// @access  Private/Admin
-exports.getUsers = async (req, res) => {
-  try {
-    const users = await User.find().select('-password');
+// @desc    Register a new user
+// @route   POST /api/users/register
+// @access  Public
+exports.register = asyncHandler(async (req, res) => {
+  const { name, email, password, phone } = req.body;
 
-    res.status(200).json({
-      success: true,
-      count: users.length,
-      users
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: 'Erreur lors de la récupération des utilisateurs',
-      error: error.message
-    });
+  // Check if user already exists
+  const userExists = await User.findOne({ email });
+
+  if (userExists) {
+    res.status(400);
+    throw new Error('User already exists');
   }
-};
 
-// @desc    Obtenir un utilisateur par ID
-// @route   GET /api/users/:id
-// @access  Private/Admin
-exports.getUser = async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id).select('-password');
+  // Create user
+  const user = await User.create({
+    name,
+    email,
+    password,
+    phone,
+  });
 
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: 'Utilisateur non trouvé'
-      });
-    }
-
-    res.status(200).json({
+  if (user) {
+    res.status(201).json({
       success: true,
-      user
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: 'Erreur lors de la récupération de l\'utilisateur',
-      error: error.message
-    });
-  }
-};
-
-// @desc    Mettre à jour un utilisateur
-// @route   PUT /api/users/:id
-// @access  Private/Admin
-exports.updateUser = async (req, res) => {
-  try {
-    const { firstName, lastName, email, phone, role } = req.body;
-
-    const user = await User.findById(req.params.id);
-
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: 'Utilisateur non trouvé'
-      });
-    }
-
-    // Mettre à jour les champs
-    if (firstName) user.firstName = firstName;
-    if (lastName) user.lastName = lastName;
-    if (email) user.email = email;
-    if (phone) user.phone = phone;
-    if (role) user.role = role;
-
-    await user.save();
-
-    res.status(200).json({
-      success: true,
-      user: {
-        id: user._id,
-        firstName: user.firstName,
-        lastName: user.lastName,
+      data: {
+        _id: user._id,
+        name: user.name,
         email: user.email,
         phone: user.phone,
         role: user.role,
-        createdAt: user.createdAt,
-        lastLogin: user.lastLogin
-      }
+        token: user.getSignedJwtToken(),
+      },
     });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: 'Erreur lors de la mise à jour de l\'utilisateur',
-      error: error.message
-    });
+  } else {
+    res.status(400);
+    throw new Error('Invalid user data');
   }
-};
+});
 
-// @desc    Supprimer un utilisateur
-// @route   DELETE /api/users/:id
-// @access  Private/Admin
-exports.deleteUser = async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
+// @desc    Login user
+// @route   POST /api/users/login
+// @access  Public
+exports.login = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
 
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: 'Utilisateur non trouvé'
-      });
+  // Validate email & password
+  if (!email || !password) {
+    res.status(400);
+    throw new Error('Please provide an email and password');
+  }
+
+  // Check for user
+  const user = await User.findOne({ email }).select('+password');
+
+  if (!user) {
+    res.status(401);
+    throw new Error('Invalid credentials');
+  }
+
+  // Check if password matches
+  const isMatch = await user.matchPassword(password);
+
+  if (!isMatch) {
+    res.status(401);
+    throw new Error('Invalid credentials');
+  }
+
+  // Create token
+  const token = user.getSignedJwtToken();
+
+  res.status(200).json({
+    success: true,
+    data: {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      role: user.role,
+      token,
+    },
+  });
+});
+
+// @desc    Get user profile
+// @route   GET /api/users/profile
+// @access  Private
+exports.getProfile = asyncHandler(async (req, res) => {
+  // This will need middleware to verify the token and set req.user
+  const user = await User.findById(req.user.id);
+
+  if (user) {
+    res.status(200).json({
+      success: true,
+      data: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+      },
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
+// @desc    Update user profile
+// @route   PUT /api/users/profile
+// @access  Private
+exports.updateProfile = asyncHandler(async (req, res) => {
+  // This will need middleware to verify the token and set req.user
+  const user = await User.findById(req.user.id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.phone = req.body.phone || user.phone;
+
+    if (req.body.password) {
+      user.password = req.body.password;
     }
 
-    await user.remove();
+    const updatedUser = await user.save();
 
     res.status(200).json({
       success: true,
-      message: 'Utilisateur supprimé avec succès'
+      data: {
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        phone: updatedUser.phone,
+        role: updatedUser.role,
+        token: updatedUser.getSignedJwtToken(),
+      },
     });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: 'Erreur lors de la suppression de l\'utilisateur',
-      error: error.message
-    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
   }
-};
+});

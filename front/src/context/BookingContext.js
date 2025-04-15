@@ -1,134 +1,117 @@
-import React, { createContext, useState } from 'react';
-import axios from 'axios';
+import { createContext, useState, useContext } from 'react';
+import { bookingService, priceService } from '../services/api';
 
 const BookingContext = createContext();
 
 export const BookingProvider = ({ children }) => {
-  const [bookingData, setBookingData] = useState({
-    pickupAddress: '',
-    dropoffAddress: '',
-    pickupDate: '',
-    pickupTime: '',
-    passengers: 1,
-    luggage: 0,
-    roundTrip: false,
-    serviceType: 'standard', // standard, airport, longDistance, vip
-    estimatedPrice: 0,
-    distance: 0,
-    duration: 0
-  });
-  
-  const [bookingStep, setBookingStep] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+  const [currentBooking, setCurrentBooking] = useState(null);
+  const [priceEstimate, setPriceEstimate] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  
-  // Update booking form data
-  const updateBookingData = (data) => {
-    setBookingData(prevData => ({
-      ...prevData,
-      ...data
-    }));
-  };
-  
-  // Calculate price based on distance and service type
-  const calculatePrice = async (origin, destination, serviceType) => {
+  const [bookingSuccess, setBookingSuccess] = useState(false);
+
+  // Calculate price estimate
+  const calculatePrice = async (bookingData) => {
+    setLoading(true);
+    setError(null);
+    
     try {
-      setIsLoading(true);
-      setError(null);
-      
-      const response = await axios.post('/api/bookings/calculate-price', {
-        origin,
-        destination,
-        serviceType
-      });
-      
-      const { estimatedPrice, distance, duration } = response.data;
-      
-      updateBookingData({
-        estimatedPrice,
-        distance,
-        duration
-      });
-      
-      setIsLoading(false);
-      return response.data;
+      const response = await priceService.calculateEstimate(bookingData);
+      setPriceEstimate(response.data.data);
+      return response.data.data;
     } catch (err) {
-      setError(err.response?.data?.message || 'Error calculating price');
-      setIsLoading(false);
-      throw err;
+      const errorMessage = err.response?.data?.error || 'Une erreur est survenue lors du calcul du prix';
+      setError(errorMessage);
+      throw new Error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
-  
-  // Create a new booking
-  const createBooking = async () => {
+
+  // Create booking
+  const createBooking = async (bookingData) => {
+    setLoading(true);
+    setError(null);
+    setBookingSuccess(false);
+    
     try {
-      setIsLoading(true);
-      setError(null);
-      
-      const response = await axios.post('/api/bookings', bookingData);
-      
-      setIsLoading(false);
-      return response.data;
+      const response = await bookingService.createBooking(bookingData);
+      setCurrentBooking(response.data.data);
+      setBookingSuccess(true);
+      return response.data.data;
     } catch (err) {
-      setError(err.response?.data?.message || 'Error creating booking');
-      setIsLoading(false);
-      throw err;
+      const errorMessage = err.response?.data?.error || 'Une erreur est survenue lors de la réservation';
+      setError(errorMessage);
+      throw new Error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
-  
-  // Get user's bookings
-  const getUserBookings = async () => {
+
+  // Get booking by ID
+  const getBookingById = async (id) => {
+    setLoading(true);
+    setError(null);
+    
     try {
-      setIsLoading(true);
-      setError(null);
-      
-      const response = await axios.get('/api/bookings');
-      
-      setIsLoading(false);
-      return response.data;
+      const response = await bookingService.getBookingById(id);
+      setCurrentBooking(response.data.data);
+      return response.data.data;
     } catch (err) {
-      setError(err.response?.data?.message || 'Error fetching bookings');
-      setIsLoading(false);
-      throw err;
+      const errorMessage = err.response?.data?.error || 'Une erreur est survenue lors de la récupération de la réservation';
+      setError(errorMessage);
+      throw new Error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
-  
-  // Reset booking form
-  const resetBookingData = () => {
-    setBookingData({
-      pickupAddress: '',
-      dropoffAddress: '',
-      pickupDate: '',
-      pickupTime: '',
-      passengers: 1,
-      luggage: 0,
-      roundTrip: false,
-      serviceType: 'standard',
-      estimatedPrice: 0,
-      distance: 0,
-      duration: 0
-    });
-    setBookingStep(1);
+
+  // Cancel booking
+  const cancelBooking = async (id, data) => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const response = await bookingService.cancelBooking(id, data);
+      setCurrentBooking(null);
+      return response.data;
+    } catch (err) {
+      const errorMessage = err.response?.data?.error || "Une erreur est survenue lors de l'annulation";
+      setError(errorMessage);
+      throw new Error(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Reset booking state
+  const resetBookingState = () => {
+    setCurrentBooking(null);
+    setPriceEstimate(null);
+    setError(null);
+    setBookingSuccess(false);
   };
 
   return (
     <BookingContext.Provider
       value={{
-        bookingData,
-        bookingStep,
-        isLoading,
+        currentBooking,
+        priceEstimate,
+        loading,
         error,
-        updateBookingData,
+        bookingSuccess,
         calculatePrice,
         createBooking,
-        getUserBookings,
-        resetBookingData,
-        setBookingStep
+        getBookingById,
+        cancelBooking,
+        resetBookingState,
       }}
     >
       {children}
     </BookingContext.Provider>
   );
 };
+
+export const useBooking = () => useContext(BookingContext);
 
 export default BookingContext;

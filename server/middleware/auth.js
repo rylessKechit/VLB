@@ -1,75 +1,49 @@
 const jwt = require('jsonwebtoken');
+const asyncHandler = require('express-async-handler');
 const User = require('../models/User');
+const config = require('../config/environment');
 
-// Middleware pour protéger les routes
-exports.protect = async (req, res, next) => {
+// Protect routes
+const protect = asyncHandler(async (req, res, next) => {
   let token;
 
-  // Vérifier si le token est présent dans les headers
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')
   ) {
-    // Extraire le token du header "Bearer [token]"
+    // Get token from Bearer header
     token = req.headers.authorization.split(' ')[1];
-  } 
-  // Vérifier si le token est présent dans les cookies
-  else if (req.cookies && req.cookies.token) {
-    token = req.cookies.token;
   }
 
-  // Vérifier si le token existe
+  // Make sure token exists
   if (!token) {
-    return res.status(401).json({
-      success: false,
-      message: 'Non autorisé à accéder à cette ressource'
-    });
+    res.status(401);
+    throw new Error('Not authorized to access this route');
   }
 
   try {
-    // Vérifier le token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    // Verify token
+    const decoded = jwt.verify(token, config.jwtSecret);
 
-    // Ajouter l'utilisateur à la requête
+    // Add user from payload
     req.user = await User.findById(decoded.id);
-
-    // Mettre à jour la date de dernière connexion
-    if (req.user) {
-      req.user.lastLogin = Date.now();
-      await req.user.save({ validateBeforeSave: false });
-    } else {
-      return res.status(401).json({
-        success: false,
-        message: 'Utilisateur non trouvé'
-      });
-    }
 
     next();
   } catch (error) {
-    return res.status(401).json({
-      success: false,
-      message: 'Token invalide ou expiré'
-    });
+    res.status(401);
+    throw new Error('Not authorized to access this route');
   }
-};
+});
 
-// Middleware pour autoriser certains rôles
-exports.authorize = (...roles) => {
+// Admin and driver middleware
+const restrictTo = (...roles) => {
   return (req, res, next) => {
-    if (!req.user) {
-      return res.status(401).json({
-        success: false,
-        message: 'Non autorisé à accéder à cette ressource'
-      });
-    }
-
     if (!roles.includes(req.user.role)) {
-      return res.status(403).json({
-        success: false,
-        message: `Le rôle ${req.user.role} n'est pas autorisé à accéder à cette ressource`
-      });
+      res.status(403);
+      throw new Error('You do not have permission to perform this action');
     }
-
     next();
   };
 };
+
+module.exports = { protect, restrictTo };
