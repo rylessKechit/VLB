@@ -6,7 +6,6 @@ import HomePage from './pages/HomePage';
 import AirportTransferPage from './pages/AirportTransferPage';
 import LongDistancePage from './pages/LongDistancePage';
 import ContactPage from './pages/ContactPage';
-import FleetPage from './pages/FleetPage';
 import AboutPage from './pages/AboutPage';
 
 import './styles/global.css';
@@ -14,7 +13,6 @@ import './styles/components/VehicleSelector.css';
 import './styles/components/BookingForm.css';
 import './styles/components/BookingSuccess.css';
 import './styles/pages/ServicePage.css';
-import './styles/pages/FleetPage.css';
 import './styles/pages/AboutPage.css';
 import './animations.js'
 
@@ -35,7 +33,6 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/services-aeroport-gare" element={<AirportTransferPage />} />
             <Route path="/services-longue-distance" element={<LongDistancePage />} />
-            <Route path="/flotte-vehicules" element={<FleetPage />} />
             <Route path="/a-propos" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
           </Routes>

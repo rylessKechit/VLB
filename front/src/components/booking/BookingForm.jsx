@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import AddressInput from './AddressInput';
 import DateTimePicker from './DateTimePicker';
-import VehicleSelector from './VehicleSelector';
 import BookingSuccess from './BookingSuccess';
 import '../../styles/components/BookingForm.css';
 import { priceService } from '../../services/api';
@@ -16,7 +15,6 @@ const BookingForm = () => {
     pickupTime: '',
     passengers: 2,
     luggage: 1,
-    vehicleType: '',
     roundTrip: false,
     returnDate: '',
     returnTime: '',
@@ -32,7 +30,6 @@ const BookingForm = () => {
     }
   });
   
-  const [availableVehicles, setAvailableVehicles] = useState([]);
   const [priceEstimate, setPriceEstimate] = useState(null);
   const [isCalculating, setIsCalculating] = useState(false);
   const [error, setError] = useState('');
@@ -109,7 +106,6 @@ const BookingForm = () => {
     // Reset price estimate when inputs change
     if (['pickupAddress', 'dropoffAddress', 'pickupDate', 'pickupTime', 'passengers', 'luggage', 'roundTrip'].includes(name)) {
       setPriceEstimate(null);
-      setAvailableVehicles([]);
     }
     
     // If roundTrip is toggled to false, clear return date/time
@@ -138,16 +134,6 @@ const BookingForm = () => {
       [`${name}PlaceId`]: placeId
     }));
     setPriceEstimate(null);
-    setAvailableVehicles([]);
-  };
-
-  const handleVehicleSelect = (vehicleType, priceInfo) => {
-    setFormData(prev => ({ 
-      ...prev,
-      vehicleType: vehicleType
-    }));
-    
-    setPriceEstimate(priceInfo);
   };
   
   const calculatePrice = async () => {
@@ -178,103 +164,8 @@ const BookingForm = () => {
       });
       
       if (response.data && response.data.success) {
-        // En situation réelle, on récupérerait ici les différentes options de véhicules
-        // Mais pour la démo, nous allons simuler les options disponibles
-        
-        // Simuler les différentes options de véhicules disponibles avec les prix
-        const vehicleOptions = [
-          {
-            id: 'sedan',
-            name: 'Berline de Luxe',
-            desc: 'Mercedes Classe E ou similaire',
-            capacity: 'Jusqu\'à 3 passagers',
-            price: response.data.data.estimate.exactPrice,
-            estimate: response.data.data.estimate
-          },
-          {
-            id: 'green',
-            name: 'Green - Tesla Model 3',
-            desc: 'Véhicule 100% électrique, écologique et luxueux',
-            capacity: 'Jusqu\'à 4 passagers',
-            price: response.data.data.estimate.exactPrice * 1.1, // 10% plus cher
-            estimate: {
-              ...response.data.data.estimate,
-              exactPrice: response.data.data.estimate.exactPrice * 1.1,
-              minPrice: response.data.data.estimate.minPrice * 1.1,
-              maxPrice: response.data.data.estimate.maxPrice * 1.1,
-              breakdown: {
-                ...response.data.data.estimate.breakdown,
-                baseFare: response.data.data.estimate.breakdown.baseFare * 1.1,
-                distanceCharge: response.data.data.estimate.breakdown.distanceCharge * 1.1,
-                timeCharge: response.data.data.estimate.breakdown.timeCharge * 1.1,
-                greenSupplement: response.data.data.estimate.exactPrice * 0.1
-              }
-            }
-          },
-          {
-            id: 'premium',
-            name: 'Berline Premium',
-            desc: 'Mercedes Classe S ou similaire',
-            capacity: 'Jusqu\'à 3 passagers',
-            price: response.data.data.estimate.exactPrice * 1.3, // 30% plus cher
-            estimate: {
-              ...response.data.data.estimate,
-              exactPrice: response.data.data.estimate.exactPrice * 1.3,
-              minPrice: response.data.data.estimate.minPrice * 1.3,
-              maxPrice: response.data.data.estimate.maxPrice * 1.3,
-              breakdown: {
-                ...response.data.data.estimate.breakdown,
-                baseFare: response.data.data.estimate.breakdown.baseFare * 1.3,
-                distanceCharge: response.data.data.estimate.breakdown.distanceCharge * 1.3,
-                timeCharge: response.data.data.estimate.breakdown.timeCharge * 1.3,
-                premiumSupplement: response.data.data.estimate.exactPrice * 0.3
-              }
-            }
-          },
-          {
-            id: 'suv',
-            name: 'SUV de Luxe',
-            desc: 'BMW X5 ou similaire',
-            capacity: 'Jusqu\'à 5 passagers',
-            price: response.data.data.estimate.exactPrice * 1.5, // 50% plus cher
-            estimate: {
-              ...response.data.data.estimate,
-              exactPrice: response.data.data.estimate.exactPrice * 1.5,
-              minPrice: response.data.data.estimate.minPrice * 1.5,
-              maxPrice: response.data.data.estimate.maxPrice * 1.5,
-              breakdown: {
-                ...response.data.data.estimate.breakdown,
-                baseFare: response.data.data.estimate.breakdown.baseFare * 1.5,
-                distanceCharge: response.data.data.estimate.breakdown.distanceCharge * 1.5,
-                timeCharge: response.data.data.estimate.breakdown.timeCharge * 1.5,
-                suvSupplement: response.data.data.estimate.exactPrice * 0.5
-              }
-            }
-          },
-          {
-            id: 'van',
-            name: 'Van VIP',
-            desc: 'Mercedes Classe V ou similaire',
-            capacity: 'Jusqu\'à 7 passagers',
-            price: response.data.data.estimate.exactPrice * 1.8, // 80% plus cher
-            estimate: {
-              ...response.data.data.estimate,
-              exactPrice: response.data.data.estimate.exactPrice * 1.8,
-              minPrice: response.data.data.estimate.minPrice * 1.8,
-              maxPrice: response.data.data.estimate.maxPrice * 1.8,
-              breakdown: {
-                ...response.data.data.estimate.breakdown,
-                baseFare: response.data.data.estimate.breakdown.baseFare * 1.8,
-                distanceCharge: response.data.data.estimate.breakdown.distanceCharge * 1.8,
-                timeCharge: response.data.data.estimate.breakdown.timeCharge * 1.8,
-                vanSupplement: response.data.data.estimate.exactPrice * 0.8
-              }
-            }
-          }
-        ];
-        
-        setAvailableVehicles(vehicleOptions);
-        setCurrentStep(2); // Avancer à l'étape 2 (sélection du véhicule)
+        setPriceEstimate(response.data.data.estimate);
+        setCurrentStep(2); // Passer directement à l'étape des informations client
       } else {
         setError(response.data?.error || "Erreur lors du calcul du prix.");
       }
@@ -298,9 +189,7 @@ const BookingForm = () => {
     
     if (currentStep === 1) {
       calculatePrice();
-    } else if (currentStep === 2 && formData.vehicleType) {
-      setCurrentStep(3); // Passer à l'étape des informations client
-    } else if (currentStep === 3) {
+    } else if (currentStep === 2) {
       // Validation des informations client
       if (!formData.customerInfo.name || !formData.customerInfo.email || !formData.customerInfo.phone) {
         setError('Veuillez remplir tous les champs obligatoires');
@@ -313,6 +202,7 @@ const BookingForm = () => {
         id: 'BK' + Math.floor(Math.random() * 10000),
         createdAt: new Date().toISOString(),
         status: 'confirmed',
+        vehicleType: 'van',  // Classe V par défaut
         price: {
           amount: priceEstimate.exactPrice,
           currency: 'EUR'
@@ -355,11 +245,6 @@ const BookingForm = () => {
         <div className="step-line"></div>
         <div className={`step-indicator ${currentStep >= 2 ? 'active' : ''}`}>
           <span className="step-number">2</span>
-          <span className="step-label">Choix du véhicule</span>
-        </div>
-        <div className="step-line"></div>
-        <div className={`step-indicator ${currentStep >= 3 ? 'active' : ''}`}>
-          <span className="step-number">3</span>
           <span className="step-label">Confirmation</span>
         </div>
       </div>
@@ -483,6 +368,7 @@ const BookingForm = () => {
                     className="counter-btn"
                     onClick={() => formData.passengers > 1 && handleInputChange('passengers', formData.passengers - 1)}
                   >
+                    <i className="fas fa-minus"></i>
                   </button>
                   <span className="counter-value">{formData.passengers}</span>
                   <button 
@@ -493,6 +379,7 @@ const BookingForm = () => {
                     <i className="fas fa-plus"></i>
                   </button>
                 </div>
+                <small className="field-info">Maximum 7 passagers</small>
               </div>
               
               <div className="form-group">
@@ -509,11 +396,12 @@ const BookingForm = () => {
                   <button 
                     type="button" 
                     className="counter-btn"
-                    onClick={() => formData.luggage < 10 && handleInputChange('luggage', formData.luggage + 1)}
+                    onClick={() => formData.luggage < 7 && handleInputChange('luggage', formData.luggage + 1)}
                   >
                     <i className="fas fa-plus"></i>
                   </button>
                 </div>
+                <small className="field-info">Maximum 7 bagages</small>
               </div>
             </div>
             
@@ -541,51 +429,35 @@ const BookingForm = () => {
                 {isCalculating ? (
                   <>
                     <span className="spinner"></span>
-                    Recherche des véhicules disponibles...
+                    Calcul du prix en cours...
                   </>
-                ) : 'Rechercher des véhicules'}
+                ) : 'Obtenir un devis'}
               </button>
+            </div>
+
+            <div className="vehicle-info-box">
+              <h3>Notre véhicule</h3>
+              <div className="vehicle-info-content">
+                <div className="vehicle-icon">
+                  <i className="fas fa-shuttle-van"></i>
+                </div>
+                <div className="vehicle-details">
+                  <h4>Mercedes-Benz Classe V</h4>
+                  <p>Van VIP spacieux et confortable</p>
+                  <ul className="vehicle-features-list">
+                    <li><i className="fas fa-check"></i> Jusqu'à 7 passagers</li>
+                    <li><i className="fas fa-check"></i> Espace pour 7 bagages</li>
+                    <li><i className="fas fa-check"></i> Wifi gratuit à bord</li>
+                    <li><i className="fas fa-check"></i> Boissons fraîches</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         )}
         
-        {/* Étape 2: Sélection du véhicule */}
+        {/* Étape 2: Informations client et confirmation */}
         {currentStep === 2 && (
-          <div className="booking-step">
-            <h3 className="step-title">Choisissez votre véhicule</h3>
-            
-            <VehicleSelector 
-              vehicles={availableVehicles}
-              selectedVehicle={formData.vehicleType}
-              onSelect={handleVehicleSelect}
-              passengers={formData.passengers}
-              luggage={formData.luggage}
-            />
-            
-            <div className="form-row actions-row">
-              <button 
-                type="button" 
-                className="btn-back"
-                onClick={goBack}
-              >
-                <i className="fas fa-arrow-left"></i>
-                Retour
-              </button>
-              
-              <button 
-                type="submit" 
-                className="btn-submit"
-                disabled={!formData.vehicleType}
-              >
-                Continuer
-                <i className="fas fa-arrow-right"></i>
-              </button>
-            </div>
-          </div>
-        )}
-        
-        {/* Étape 3: Informations client et confirmation */}
-        {currentStep === 3 && (
           <div className="booking-step">
             <h3 className="step-title">Vos informations</h3>
             
@@ -633,38 +505,25 @@ const BookingForm = () => {
             </div>
             
             {/* Résumé de la réservation */}
-            <div className="booking-summary">
-              <h4>Résumé de votre réservation</h4>
-              
-              <div className="summary-grid">
-                <div className="summary-item">
-                  <span className="label">Départ:</span>
-                  <span className="value">{formData.pickupAddress}</span>
-                </div>
+            {priceEstimate && (
+              <div className="booking-summary">
+                <h4>Résumé de votre réservation</h4>
                 
-                <div className="summary-item">
-                  <span className="label">Arrivée:</span>
-                  <span className="value">{formData.dropoffAddress}</span>
-                </div>
-                
-                <div className="summary-item">
-                  <span className="label">Date et heure:</span>
-                  <span className="value">
-                    {new Date(`${formData.pickupDate}T${formData.pickupTime}`).toLocaleString('fr-FR', {
-                      day: '2-digit',
-                      month: '2-digit',
-                      year: 'numeric',
-                      hour: '2-digit',
-                      minute: '2-digit'
-                    })}
-                  </span>
-                </div>
-                
-                {formData.roundTrip && (
+                <div className="summary-grid">
                   <div className="summary-item">
-                    <span className="label">Retour:</span>
+                    <span className="label">Départ:</span>
+                    <span className="value">{formData.pickupAddress}</span>
+                  </div>
+                  
+                  <div className="summary-item">
+                    <span className="label">Arrivée:</span>
+                    <span className="value">{formData.dropoffAddress}</span>
+                  </div>
+                  
+                  <div className="summary-item">
+                    <span className="label">Date et heure:</span>
                     <span className="value">
-                      {new Date(`${formData.returnDate}T${formData.returnTime}`).toLocaleString('fr-FR', {
+                      {new Date(`${formData.pickupDate}T${formData.pickupTime}`).toLocaleString('fr-FR', {
                         day: '2-digit',
                         month: '2-digit',
                         year: 'numeric',
@@ -673,45 +532,58 @@ const BookingForm = () => {
                       })}
                     </span>
                   </div>
-                )}
-                
-                <div className="summary-item">
-                  <span className="label">Véhicule:</span>
-                  <span className="value">
-                    {availableVehicles.find(v => v.id === formData.vehicleType)?.name}
-                  </span>
-                </div>
-                
-                <div className="summary-item">
-                  <span className="label">Passagers:</span>
-                  <span className="value">{formData.passengers}</span>
-                </div>
-                
-                <div className="summary-item">
-                  <span className="label">Bagages:</span>
-                  <span className="value">{formData.luggage}</span>
-                </div>
-                
-                {formData.flightNumber && (
+                  
+                  {formData.roundTrip && (
+                    <div className="summary-item">
+                      <span className="label">Retour:</span>
+                      <span className="value">
+                        {new Date(`${formData.returnDate}T${formData.returnTime}`).toLocaleString('fr-FR', {
+                          day: '2-digit',
+                          month: '2-digit',
+                          year: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })}
+                      </span>
+                    </div>
+                  )}
+                  
                   <div className="summary-item">
-                    <span className="label">N° de vol:</span>
-                    <span className="value">{formData.flightNumber}</span>
+                    <span className="label">Véhicule:</span>
+                    <span className="value">Mercedes-Benz Classe V</span>
                   </div>
-                )}
-                
-                {formData.trainNumber && (
+                  
                   <div className="summary-item">
-                    <span className="label">N° de train:</span>
-                    <span className="value">{formData.trainNumber}</span>
+                    <span className="label">Passagers:</span>
+                    <span className="value">{formData.passengers}</span>
                   </div>
-                )}
-                
-                <div className="summary-item price">
-                  <span className="label">Prix total:</span>
-                  <span className="value">{formatPrice(priceEstimate?.exactPrice || 0)}</span>
+                  
+                  <div className="summary-item">
+                    <span className="label">Bagages:</span>
+                    <span className="value">{formData.luggage}</span>
+                  </div>
+                  
+                  {formData.flightNumber && (
+                    <div className="summary-item">
+                      <span className="label">N° de vol:</span>
+                      <span className="value">{formData.flightNumber}</span>
+                    </div>
+                  )}
+                  
+                  {formData.trainNumber && (
+                    <div className="summary-item">
+                      <span className="label">N° de train:</span>
+                      <span className="value">{formData.trainNumber}</span>
+                    </div>
+                  )}
+                  
+                  <div className="summary-item price">
+                    <span className="label">Prix total:</span>
+                    <span className="value">{formatPrice(priceEstimate?.exactPrice || 0)}</span>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
             
             <div className="form-row actions-row">
               <button 

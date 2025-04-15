@@ -1,0 +1,33 @@
+# Robots.txt file for Taxi VLB
+# https://www.taxivlb.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.taxivlb.com/sitemap.xml
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /wp-admin/
+Disallow: /login
+Disallow: /checkout
+Disallow: /panier
+Disallow: /private
+Disallow: /backend
+
+# Disallow duplicate or utility pages
+Disallow: /search
+Disallow: /*?*
+Disallow: /*/print/
+Disallow: /assets/
+Disallow: /tmp/
+Disallow: /cache/
+
+# Allow important directories
+Allow: /images/
+Allow: /assets/images/
+Allow: /public/
+
+# Crawl delay - Be nice to servers
+Crawl-delay: 10

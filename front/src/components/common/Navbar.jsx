@@ -23,7 +23,6 @@ const Navbar = ({ mobileMenuOpen }) => {
         { path: '/services-aeroport-gare', label: 'Transports Aéroport - Gare' }
       ]
     },
-    { path: '/flotte-vehicules', label: 'Notre Flotte' },
     { path: '/a-propos', label: 'À Propos' },
     { path: '/contact', label: 'Contact' },
   ];

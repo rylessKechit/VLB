@@ -43,21 +43,6 @@ const BookingSuccess = ({ bookingData }) => {
     }, 300);
   };
 
-  // Véhicule sélectionné
-  const getVehicleInfo = (type) => {
-    const vehicles = {
-      'sedan': { name: 'Berline de Luxe', desc: 'Mercedes Classe E ou similaire', icon: 'car-side' },
-      'green': { name: 'Green - Tesla Model 3', desc: 'Véhicule 100% électrique', icon: 'leaf' },
-      'premium': { name: 'Berline Premium', desc: 'Mercedes Classe S ou similaire', icon: 'car' },
-      'suv': { name: 'SUV de Luxe', desc: 'BMW X5 ou similaire', icon: 'truck' },
-      'van': { name: 'Van VIP', desc: 'Mercedes Classe V ou similaire', icon: 'shuttle-van' }
-    };
-
-    return vehicles[type] || { name: 'Véhicule standard', desc: '', icon: 'car' };
-  };
-
-  const vehicleInfo = getVehicleInfo(bookingData.vehicleType);
-
   return (
     <div className={`booking-success ${showPrintVersion ? 'print-version' : ''}`}>
       <div className="success-header">
@@ -148,11 +133,11 @@ const BookingSuccess = ({ bookingData }) => {
           
           <div className="vehicle-card">
             <div className="vehicle-icon">
-              <i className={`fas fa-${vehicleInfo.icon}`}></i>
+              <i className="fas fa-shuttle-van"></i>
             </div>
             <div className="vehicle-info">
-              <h4>{vehicleInfo.name}</h4>
-              <p>{vehicleInfo.desc}</p>
+              <h4>Mercedes-Benz Classe V</h4>
+              <p>Van VIP spacieux et confortable</p>
               <div className="vehicle-capacity">
                 <span><i className="fas fa-users"></i> {bookingData.passengers} passagers</span>
                 <span><i className="fas fa-suitcase"></i> {bookingData.luggage} bagages</span>
