@@ -1,0 +1,433 @@
+.booking-form-container {
+    background-color: white;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    max-width: 900px;
+    margin: 0 auto;
+    animation: formAppear 0.5s ease;
+  }
+  
+  @keyframes formAppear {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .booking-form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #eaeaea;
+  }
+  
+  .step-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 1;
+  }
+  
+  .step-number {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e0e0e0;
+    color: #757575;
+    border-radius: 50%;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    z-index: 2;
+    transition: var(--transition);
+  }
+  
+  .step-indicator.active .step-number {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .step-label {
+    font-size: 0.9rem;
+    color: #757575;
+    font-weight: 500;
+    transition: var(--transition);
+  }
+  
+  .step-indicator.active .step-label {
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+  
+  .step-line {
+    flex: 1;
+    height: 3px;
+    background-color: #e0e0e0;
+    margin: 0 10px;
+    position: relative;
+    top: -18px;
+    z-index: 1;
+  }
+  
+  .booking-error {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 15px 20px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .booking-error:before {
+    content: '⚠️';
+    margin-right: 10px;
+    font-size: 1.1rem;
+  }
+  
+  .booking-step {
+    padding: 30px;
+  }
+  
+  .step-title {
+    margin-bottom: 25px;
+    color: var(--primary-color);
+    text-align: center;
+  }
+  
+  .form-row {
+    margin-bottom: 20px;
+  }
+  
+  .form-row.two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-color);
+  }
+  
+  .form-group .required {
+    color: var(--accent-color);
+  }
+  
+  .text-input, 
+  .form-group select, 
+  .form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    transition: var(--transition);
+  }
+  
+  .text-input:focus, 
+  .form-group select:focus, 
+  .form-group textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.15);
+  }
+  
+  .field-info {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-lighter);
+    margin-top: 5px;
+  }
+  
+  .counter-input {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+  }
+  
+  .counter-btn {
+    background-color: #f3f3f3;
+    border: none;
+    font-size: 1rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  
+  .counter-btn:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .counter-value {
+    flex: 1;
+    text-align: center;
+    font-size: 1rem;
+    padding: 10px;
+  }
+  
+  .checkbox-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .switch-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin-right: 10px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .slider {
+    background-color: var(--primary-color);
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px var(--primary-color);
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+  
+  .switch-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  
+  .return-datetime {
+    margin-top: 15px;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  .btn-submit {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .btn-submit:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+  }
+  
+  .btn-submit:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  .spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 0.8s linear infinite;
+    margin-right: 10px;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .actions-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
+  
+  .btn-back {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    cursor: pointer;
+    padding: 10px 15px;
+    transition: var(--transition);
+  }
+  
+  .btn-back i {
+    margin-right: 8px;
+  }
+  
+  .btn-back:hover {
+    color: var(--primary-color);
+  }
+  
+  .btn-submit i {
+    margin-left: 8px;
+  }
+  
+  .booking-summary {
+    background-color: #f9f9f9;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin: 20px 0;
+  }
+  
+  .booking-summary h4 {
+    margin-bottom: 15px;
+    color: var(--primary-color);
+  }
+  
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  
+  .summary-item {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .summary-item .label {
+    font-size: 0.85rem;
+    color: var(--text-lighter);
+  }
+  
+  .summary-item .value {
+    font-weight: 500;
+  }
+  
+  .summary-item.price {
+    grid-column: span 2;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #ddd;
+  }
+  
+  .summary-item.price .value {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .booking-form-container {
+      margin: 0 10px;
+    }
+    
+    .booking-form-header {
+      padding: 15px;
+    }
+    
+    .step-number {
+      width: 30px;
+      height: 30px;
+      font-size: 0.9rem;
+    }
+    
+    .step-label {
+      font-size: 0.8rem;
+      display: none;
+    }
+    
+    .booking-step {
+      padding: 20px 15px;
+    }
+    
+    .form-row.two-columns {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    
+    .summary-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .summary-item.price {
+      grid-column: auto;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .actions-row {
+      flex-direction: column-reverse;
+      gap: 15px;
+    }
+    
+    .btn-back, .btn-submit {
+      width: 100%;
+      justify-content: center;
+    }
+  }
