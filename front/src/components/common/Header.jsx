@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
-//import logo from '../../assets/images/luxury-logo.png'; // Nouveau logo à créer
+import logo from '../../assets/images/logo.png'; // Nouveau logo à créer
 import '../../styles/components/Header.css';
 
 const Header = () => {
@@ -62,7 +62,7 @@ const Header = () => {
       <div className="header-container">
         <div className="logo-container">
           <Link to="/">
-            <img src="" alt="Luxury Transport" className="logo" />
+            <img src={logo} alt="Luxury Transport" className="logo" />
           </Link>
         </div>
 
