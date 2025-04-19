@@ -1657,3 +1657,78 @@
     flex: 0 0 100%;
   }
 }
+
+/* Styles pour la section "UN SERVICE DE TRANSFERT D'EXCEPTION" */
+.service-highlights {
+  margin-top: 60px;
+}
+
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.highlight-item {
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 25px;
+  box-shadow: var(--shadow-light);
+  transition: var(--transition);
+  display: flex;
+  align-items: flex-start;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.highlight-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.highlight-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+}
+
+.highlight-icon {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(212, 175, 55, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.highlight-content h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: var(--text-color);
+}
+
+.highlight-content p {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .highlight-item {
+    flex-direction: column;
+  }
+  
+  .highlight-icon {
+    margin: 0 auto 15px;
+  }
+  
+  .highlight-content {
+    text-align: center;
+  }
+}

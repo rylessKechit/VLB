@@ -370,3 +370,107 @@
       padding: 40px 0;
     }
   }
+
+  /* Styles pour la section vidéos */
+.videos-section {
+  padding: 60px 0;
+  background-color: #fff;
+  margin-top: 60px;
+}
+
+.videos-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.video-card {
+  flex: 1;
+  min-width: 280px;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: var(--shadow-light);
+  border-radius: var(--border-radius);
+  padding-bottom: 20px;
+  background-color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+}
+
+.video-wrapper {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+/* Style pour format téléphone vertical */
+.video-wrapper.phone-format {
+  width: 100%;
+  background-color: #000;
+}
+
+.video-wrapper.phone-format iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.video-card h3 {
+  font-size: 1.2rem;
+  margin: 15px 15px 10px;
+  color: var(--text-color);
+}
+
+.video-card p {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  padding: 0 15px;
+  margin-bottom: 10px;
+}
+
+/* Animation pour l'apparition des vidéos */
+.video-card {
+  animation: cardAppear 0.6s ease backwards;
+}
+
+.video-card:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.video-card:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .videos-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .video-card {
+    width: 100%;
+    max-width: 340px;
+  }
+}

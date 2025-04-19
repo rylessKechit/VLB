@@ -196,29 +196,11 @@ const BookingSuccess = ({ bookingData }) => {
         <div className="options-grid">
           <div className="option-card">
             <div className="option-icon">
-              <i className="fas fa-glass-cheers"></i>
-            </div>
-            <h5>Champagne à bord</h5>
-            <p>Commencez votre voyage avec une bouteille de champagne</p>
-            <a href="#" className="option-link">Ajouter (+75€)</a>
-          </div>
-          
-          <div className="option-card">
-            <div className="option-icon">
-              <i className="fas fa-concierge-bell"></i>
-            </div>
-            <h5>Service VIP</h5>
-            <p>Accueil personnalisé et service de conciergerie</p>
-            <a href="#" className="option-link">Ajouter (+50€)</a>
-          </div>
-          
-          <div className="option-card">
-            <div className="option-icon">
               <i className="fas fa-child"></i>
             </div>
             <h5>Siège enfant</h5>
             <p>Siège adapté pour les enfants de moins de 10 ans</p>
-            <a href="#" className="option-link">Ajouter (+15€)</a>
+            <a href="#" className="option-link">Ajouter (+5€)</a>
           </div>
         </div>
       </div>

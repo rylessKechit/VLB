@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/pages/AboutPage.css';
-import '../styles/pages/ServicePage.css';
+import aboutHero from '../assets/images/about-hero.jpg';
+import aboutPhilosophy from '../assets/images/about-philosophy.jpg';
 
 // Animation utility hook
 const useIntersectionObserver = (options = {}) => {
@@ -106,7 +107,7 @@ const AboutPage = () => {
       <div 
         ref={headerRef} 
         className={`service-hero ${headerVisible ? 'animate' : ''}`}
-        style={{ backgroundImage: 'url(/assets/images/about-hero.jpg)' }}
+        style={{ backgroundImage: `url(${aboutHero})` }}
       >
         <div className="service-hero-overlay"></div>
         <div className="service-hero-content">
@@ -190,7 +191,7 @@ const AboutPage = () => {
         <div className="container">
           <div className="philosophy-content">
             <div className="philosophy-image">
-              <img src="/assets/images/about-philosophy.jpg" alt="Notre philosophie" />
+              <img src={aboutPhilosophy} alt="Notre philosophie" />
             </div>
             <div className="philosophy-text">
               <h2>NOTRE PHILOSOPHIE</h2>
@@ -231,32 +232,6 @@ const AboutPage = () => {
                 </li>
               </ul>
             </div>
-          </div>
-        </div>
-      </div>
-      
-      <div ref={teamRef} className={`service-details team-section ${teamVisible ? 'animate' : ''}`}>
-        <div className="container">
-          <h2 className="fade-in">NOTRE ÉQUIPE</h2>
-          <p className="subtitle fade-in">Des professionnels dévoués qui donnent vie à notre vision</p>
-          
-          <div className="team-grid">
-            {teamMembers.map((member, index) => (
-              <div 
-                key={index} 
-                className={`team-card ${teamVisible ? 'visible' : ''}`}
-                style={{animationDelay: `${0.2 * index}s`}}
-              >
-                <div className="member-image">
-                  <img src={member.image} alt={member.name} />
-                </div>
-                <div className="member-info">
-                  <h3>{member.name}</h3>
-                  <p className="member-position">{member.position}</p>
-                  <p className="member-bio">{member.bio}</p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </div>

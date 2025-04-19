@@ -3,6 +3,14 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet'; // Importez Helmet pour gérer les métadonnées
 import BookingForm from '../components/booking/BookingForm';
 import '../styles/pages/HomePage.css';
+import headerImage from '../assets/images/header-image.jpg';
+import mercedesVClass from '../assets/images/mercedes-v-class.jpg';
+import vipExperience from '../assets/images/vip-experience.jpg';
+import logoAirFRance from '../assets/images/logo-air-france.png';
+import logoCannesFestival from '../assets/images/logo-cannes-festival.png';
+import logoLouisVuitton from '../assets/images/logo-louis-vuitton.png';
+import logoChanel from '../assets/images/logo-chanel.png';
+import logoRitzParis from '../assets/images/logo-ritz-paris.png';
 
 // Animation utility
 const useIntersectionObserver = (options = {}) => {
@@ -42,9 +50,6 @@ const HomePage = () => {
   const [bookingRef, bookingVisible] = useIntersectionObserver();
   const [partnersRef, partnersVisible] = useIntersectionObserver();
 
-  // Background video for hero
-  const videoBackground = 'https://example.com/luxury-car-video.mp4'; // Remplacez par URL vidéo réelle
-
   // Smooth scroll function
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
@@ -63,22 +68,29 @@ const HomePage = () => {
   // Testimonials data
   const testimonials = [
     {
-      name: 'Sophie Marceau',
-      role: 'Actrice',
-      text: 'Un service d\'exception que j\'utilise régulièrement lors de mes déplacements professionnels. Discrétion, ponctualité et confort absolu.',
-      image: '/assets/images/testimonial-1.jpg'
+      name: 'Martin Dupont',
+      role: 'Cadre commercial',
+      text: 'Service exceptionnel pour mes déplacements professionnels. Le chauffeur était ponctuel, la voiture impeccable et le trajet confortable. Je recommande vivement ce service pour tous vos déplacements d\'affaires.',
     },
     {
-      name: 'Jean Dujardin',
-      role: 'Acteur et Producteur',
-      text: 'Une prestation VIP impeccable pour tous mes trajets entre Paris et les festivals. Je recommande sans hésitation ce service haut de gamme.',
-      image: '/assets/images/testimonial-2.jpg'
+      name: 'Émilie Laurent',
+      role: 'Voyageuse fréquente',
+      text: 'Un service remarquable ! J\'utilise régulièrement ce taxi pour mes transferts vers CDG et je n\'ai jamais été déçue. Le chauffeur suit mon vol et est toujours là à mon arrivée, même en cas de retard. Un vrai confort après un long voyage.',
     },
     {
-      name: 'Marion Cotillard',
-      role: 'Actrice',
-      text: 'Le summum du luxe et de l\'élégance pour vos déplacements. Un chauffeur toujours disponible et parfaitement professionnel.',
-      image: '/assets/images/testimonial-3.jpg'
+      name: 'Thomas Moreau',
+      role: 'Chef d\'entreprise',
+      text: 'La Mercedes Classe V est parfaite pour les réunions mobiles. J\'ai pu travailler confortablement pendant mon trajet grâce au WiFi et à l\'espace généreux. Un gain de temps précieux dans mes journées chargées.',
+    },
+    {
+      name: 'Sophie Bertrand',
+      role: 'Organisatrice d\'événements',
+      text: 'J\'ai réservé ce service pour le transport de clients VIP lors d\'un événement d\'entreprise. Le professionnalisme du chauffeur et le confort du véhicule ont fait forte impression. Merci pour votre fiabilité !',
+    },
+    {
+      name: 'Pierre Lefebvre',
+      role: 'Retraité',
+      text: 'À notre âge, voyager peut être stressant. Ce service nous a permis de rejoindre l\'aéroport sereinement. Le chauffeur a été d\'une gentillesse exceptionnelle, nous aidant avec nos bagages et s\'adaptant à notre rythme.',
     }
   ];
 
@@ -98,9 +110,9 @@ const HomePage = () => {
     <div className="home-page">
       {/* SEO Metadata avec Helmet */}
       <Helmet>
-        <title>Taxi VLB - Service de taxi VIP à Verrières-le-Buisson | Mercedes Classe V</title>
-        <meta name="description" content="Taxi VLB vous propose un service de transport VIP avec Mercedes Classe V à Verrières-le-Buisson. Transferts aéroport CDG, Orly, gares, et longue distance. Réservation 24h/24, 7j/7." />
-        <meta name="keywords" content="taxi Verrières-le-Buisson, taxi VIP, Mercedes Classe V, transfert aéroport, transport gare, chauffeur privé" />
+        <title>Taxi VLB - Service de taxi à Verrières-le-Buisson</title>
+        <meta name="description" content="Taxi VLB vous propose un service de transport avec Mercedes Classe V à Verrières-le-Buisson. Transferts aéroport CDG, Orly, gares, et longue distance. Réservation 24h/24, 7j/7." />
+        <meta name="keywords" content="taxi Verrières-le-Buisson, Mercedes Classe V, transfert aéroport, transport gare, chauffeur privé" />
         <link rel="canonical" href="https://www.taxivlb.com" />
         <script type="application/ld+json">{`
           {
@@ -110,8 +122,8 @@ const HomePage = () => {
               "@type": "SpeakableSpecification",
               "cssSelector": ["h1", ".hero-content p"]
             },
-            "name": "Taxi VLB - Service de taxi VIP à Verrières-le-Buisson",
-            "description": "Service de transport VIP avec Mercedes Classe V. Transferts aéroport, gare et longue distance disponibles 24h/24, 7j/7.",
+            "name": "Taxi VLB - Service de taxi à Verrières-le-Buisson",
+            "description": "Service de transport avec Mercedes Classe V. Transferts aéroport, gare et longue distance disponibles 24h/24, 7j/7.",
             "url": "https://www.taxivlb.com",
             "isPartOf": {
               "@type": "WebSite",
@@ -122,23 +134,23 @@ const HomePage = () => {
         `}</script>
       </Helmet>
 
-      {/* Hero Section with Video Background */}
       <section 
         ref={heroRef} 
         className={`hero-section fullscreen ${heroVisible ? 'animate' : ''}`}
+        style={{ 
+          backgroundImage: `url(${headerImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
       >
-        <div className="video-background">
-          <div className="overlay"></div>
-          <video autoPlay loop muted playsInline aria-hidden="true">
-            <source src={videoBackground} type="video/mp4" />
-          </video>
-        </div>
+
+      <div className="overlay"></div>
         
         <div className="hero-content">
           <h1 className="slide-in-left">
-            <span className="text-primary">TAXI VLB</span> - Transport VIP à Verrières-le-Buisson
+            <span className="text-primary">TAXI VLB</span>
           </h1>
-          <p className="subtitle fade-in">Service de transport VIP avec Mercedes Classe V pour une clientèle exigeante</p>
+          <p className="subtitle fade-in">Service de transport avec Mercedes Classe V pour une clientèle exigeante</p>
           <p className="slide-in-right">
             Chauffeur privé haut de gamme pour vos transferts aéroport, gare, événements professionnels et voyages d'affaires.
             Disponible 24h/24, 7j/7.
@@ -188,26 +200,11 @@ const HomePage = () => {
       >
         <div className="container">
           <div className="section-heading">
-            <h2>SERVICES DE TRANSPORT VIP À VERRIÈRES-LE-BUISSON</h2>
+            <h2>SERVICES DE TRANSPORT À VERRIÈRES-LE-BUISSON</h2>
             <p className="subtitle">Des prestations personnalisées pour tous vos besoins de déplacement</p>
           </div>
           
           <div className="services-grid">
-            <div className={`service-card stagger-item ${servicesVisible ? 'visible stagger-delay-1' : ''}`}>
-              <div className="service-icon">
-                <i className="fas fa-crown" aria-hidden="true"></i>
-              </div>
-              <h3>TRANSFERT VIP</h3>
-              <p>
-                Une expérience d'exception avec chauffeur privé dédié, Mercedes Classe V et service personnalisé. 
-                Confidentialité, élégance et attention aux moindres détails pour vos déplacements exclusifs.
-              </p>
-              <Link to="/experience-vip" className="service-link">
-                Découvrir
-                <i className="fas fa-arrow-right" aria-hidden="true"></i>
-              </Link>
-            </div>
-            
             <div className={`service-card stagger-item ${servicesVisible ? 'visible stagger-delay-2' : ''}`}>
               <div className="service-icon">
                 <i className="fas fa-plane-arrival" aria-hidden="true"></i>
@@ -255,16 +252,16 @@ const HomePage = () => {
       >
         <div className="container">
           <div className="section-heading">
-            <h2>NOTRE MERCEDES CLASSE V - TAXI DE LUXE À VERRIÈRES-LE-BUISSON</h2>
+            <h2>NOTRE MERCEDES CLASSE V</h2>
             <p className="subtitle">Un véhicule d'exception pour une expérience de transport inoubliable</p>
           </div>
           
           <div className={`vehicle-showcase fade-in ${vehicleVisible ? 'visible' : ''}`}>
             <div className="vehicle-image">
-              <img src="/assets/images/mercedes-v-class.jpg" alt="Mercedes-Benz Classe V Taxi de luxe à Verrières-le-Buisson" loading="lazy" />
+              <img src={mercedesVClass} alt="Mercedes-Benz Classe V Taxi à Verrières-le-Buisson" loading="lazy" />
             </div>
             <div className="vehicle-details">
-              <h3>Mercedes-Benz Classe V VIP</h3>
+              <h3>Mercedes-Benz Classe V</h3>
               <p className="vehicle-description">
                 Notre Mercedes Classe V est le véhicule idéal pour tous vos déplacements à Verrières-le-Buisson et en Île-de-France, alliant élégance, confort et praticité. 
                 Avec un espace généreux et des aménagements luxueux, il peut accueillir jusqu'à 7 passagers et leurs bagages 
@@ -303,12 +300,12 @@ const HomePage = () => {
           <div className="experience-content">
             <div className={`experience-text slide-in-left ${experienceVisible ? 'visible' : ''}`}>
               <div className="section-heading text-left">
-                <h2>L'EXPÉRIENCE TAXI VIP À VERRIÈRES-LE-BUISSON</h2>
+                <h2>L'EXPÉRIENCE TAXI À VERRIÈRES-LE-BUISSON</h2>
                 <div className="separator-line"></div>
                 <p>Bien plus qu'un simple transport, une expérience unique</p>
               </div>
               <p>
-                Chaque trajet avec notre service de taxi VIP à Verrières-le-Buisson est une expérience raffinée, 
+                Chaque trajet avec notre service de taxi à Verrières-le-Buisson est une expérience raffinée, 
                 où chaque détail est pensé pour répondre à vos attentes les plus exigeantes.
               </p>
               <ul className="experience-features">
@@ -330,12 +327,12 @@ const HomePage = () => {
                 </li>
               </ul>
               <Link to="/experience-vip" className="btn btn-primary">
-                Découvrir l'expérience VIP
+                Découvrir l'expérience
               </Link>
             </div>
             
             <div className={`experience-image slide-in-right ${experienceVisible ? 'visible' : ''}`}>
-              <img src="/assets/images/vip-experience.jpg" alt="Expérience taxi VIP à Verrières-le-Buisson dans Mercedes Classe V" loading="lazy" />
+              <img src={vipExperience} alt="Expérience taxi à Verrières-le-Buisson dans Mercedes Classe V" loading="lazy" />
             </div>
           </div>
         </div>
@@ -349,7 +346,7 @@ const HomePage = () => {
       >
         <div className="container">
           <div className="section-heading">
-            <h2>AVIS CLIENTS SUR NOTRE SERVICE DE TAXI VIP</h2>
+            <h2>AVIS CLIENTS SUR NOTRE SERVICE DE TAXI</h2>
             <p className="subtitle">Ce que disent nos clients sur notre service à Verrières-le-Buisson</p>
           </div>
           
@@ -365,9 +362,6 @@ const HomePage = () => {
                   </div>
                   <p className="testimonial-text">{testimonial.text}</p>
                   <div className="testimonial-author">
-                    <div className="author-image">
-                      <img src={testimonial.image} alt={`Avis client ${testimonial.name} sur Taxi VLB`} loading="lazy" />
-                    </div>
                     <div className="author-info">
                       <h4>{testimonial.name}</h4>
                       <p>{testimonial.role}</p>
@@ -399,7 +393,7 @@ const HomePage = () => {
       >
         <div className="container">
           <div className="section-heading">
-            <h2>RÉSERVATION DE TAXI VIP À VERRIÈRES-LE-BUISSON</h2>
+            <h2>RÉSERVATION DE TAXI À VERRIÈRES-LE-BUISSON</h2>
             <p className="subtitle">Un service sur-mesure pour répondre à toutes vos exigences</p>
           </div>
           
@@ -418,24 +412,24 @@ const HomePage = () => {
         <div className="container">
           <div className="section-heading">
             <h2>NOS PARTENAIRES DE PRESTIGE</h2>
-            <p className="subtitle">Ils nous font confiance pour leurs déplacements VIP à Verrières-le-Buisson et en Île-de-France</p>
+            <p className="subtitle">Ils nous font confiance pour leurs déplacements à Verrières-le-Buisson et en Île-de-France</p>
           </div>
           
           <div className={`partners-logos fade-in ${partnersVisible ? 'visible' : ''}`}>
             <div className="partner-logo">
-              <img src="/assets/images/logo-cannes-festival.png" alt="Partenariat Taxi VLB avec Festival de Cannes" loading="lazy" />
+              <img src={logoCannesFestival} alt="Partenariat Taxi VLB avec Festival de Cannes" loading="lazy" />
             </div>
             <div className="partner-logo">
-              <img src="/assets/images/logo-ritz-paris.png" alt="Partenariat Taxi VLB avec Ritz Paris" loading="lazy" />
+              <img src={logoRitzParis} alt="Partenariat Taxi VLB avec Ritz Paris" loading="lazy" />
             </div>
             <div className="partner-logo">
-              <img src="/assets/images/logo-louis-vuitton.png" alt="Partenariat Taxi VLB avec Louis Vuitton" loading="lazy" />
+              <img src={logoLouisVuitton} alt="Partenariat Taxi VLB avec Louis Vuitton" loading="lazy" />
             </div>
             <div className="partner-logo">
-              <img src="/assets/images/logo-chanel.png" alt="Partenariat Taxi VLB avec Chanel" loading="lazy" />
+              <img src={logoChanel} alt="Partenariat Taxi VLB avec Chanel" loading="lazy" />
             </div>
             <div className="partner-logo">
-              <img src="/assets/images/logo-air-france.png" alt="Partenariat Taxi VLB avec Air France" loading="lazy" />
+              <img src={logoAirFRance} alt="Partenariat Taxi VLB avec Air France" loading="lazy" />
             </div>
           </div>
         </div>
@@ -452,7 +446,7 @@ const HomePage = () => {
           <div className="service-areas-content">
             <div className="primary-area">
               <h3>Verrières-le-Buisson et proximité</h3>
-              <p>Notre service de taxi de luxe avec Mercedes Classe V couvre principalement Verrières-le-Buisson et les villes environnantes, notamment :</p>
+              <p>Notre service de taxi avec Mercedes Classe V couvre principalement Verrières-le-Buisson et les villes environnantes, notamment :</p>
               <ul className="areas-list">
                 <li>Antony</li>
                 <li>Massy</li>
@@ -503,17 +497,17 @@ const HomePage = () => {
         <div className="container">
           <div className="section-heading">
             <h2>QUESTIONS FRÉQUENTES - TAXI VLB</h2>
-            <p className="subtitle">Tout ce que vous devez savoir sur notre service de taxi VIP à Verrières-le-Buisson</p>
+            <p className="subtitle">Tout ce que vous devez savoir sur notre service de taxi à Verrières-le-Buisson</p>
           </div>
           
           <div className="faq-container">
             <div className="faq-item">
-              <h3>Comment réserver un taxi VIP à Verrières-le-Buisson ?</h3>
+              <h3>Comment réserver un taxi à Verrières-le-Buisson ?</h3>
               <p>Vous pouvez réserver notre service de taxi Mercedes Classe V via notre formulaire de réservation en ligne, par téléphone au +33 6 00 00 00 00 ou par email. Nous recommandons de réserver à l'avance pour garantir la disponibilité.</p>
             </div>
             
             <div className="faq-item">
-              <h3>Quel est le prix d'une course de taxi VIP avec Mercedes Classe V ?</h3>
+              <h3>Quel est le prix d'une course de taxi avec Mercedes Classe V ?</h3>
               <p>Nos tarifs dépendent de plusieurs facteurs : distance, durée, horaire et services additionnels. Utilisez notre calculateur en ligne pour obtenir un devis instantané pour votre trajet spécifique.</p>
             </div>
             
@@ -529,7 +523,7 @@ const HomePage = () => {
             
             <div className="faq-item">
               <h3>Proposez-vous des sièges auto pour enfants ?</h3>
-              <p>Oui, nous proposons des sièges auto adaptés aux enfants de tous âges sur demande lors de votre réservation (supplément de 15€).</p>
+              <p>Oui, nous proposons des sièges auto adaptés aux enfants de tous âges sur demande lors de votre réservation (supplément de 5€).</p>
             </div>
             
             <div className="faq-item">
@@ -544,8 +538,8 @@ const HomePage = () => {
       <section className="cta-section">
         <div className="container">
           <div className="cta-content">
-            <h2>Réservez votre taxi VIP à Verrières-le-Buisson</h2>
-            <p>Contactez-nous dès maintenant pour réserver votre expérience de transport VIP avec Mercedes Classe V.</p>
+            <h2>Réservez votre taxi à Verrières-le-Buisson</h2>
+            <p>Contactez-nous dès maintenant pour réserver votre expérience de transport avec Mercedes Classe V.</p>
             <div className="cta-buttons">
               <Link to="/contact" className="btn btn-primary">
                 Nous contacter

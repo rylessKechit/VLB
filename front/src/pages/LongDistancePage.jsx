@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import BookingForm from '../components/booking/BookingForm';
 import '../styles/pages/ServicePage.css';
+import longDistanceHighway from '../assets/images/long-distance-highway.jpg';
 
 // Animation utility hook
 const useIntersectionObserver = (options = {}) => {
@@ -52,7 +53,7 @@ const LongDistancePage = () => {
       <div 
         ref={headerRef} 
         className={`service-hero ${headerVisible ? 'animate' : ''}`}
-        style={{ backgroundImage: 'url(/assets/images/long-distance-highway.jpg)' }}
+        style={{ backgroundImage: `url(${longDistanceHighway})` }}
       >
         <div className="service-hero-overlay"></div>
         <div className="service-hero-content">
@@ -134,97 +135,6 @@ const LongDistancePage = () => {
         </div>
       </div>
       
-      <div ref={servicesRef} className={`service-details ${servicesVisible ? 'animate' : ''}`}>
-        <div className="container">
-          <h2 className="fade-in">NOS SERVICES LONGUE DISTANCE</h2>
-          <p className="subtitle fade-in">Des solutions adaptées à tous vos besoins de voyage</p>
-          
-          <div className="services-grid">
-            <div className="service-detail-card slide-in-left">
-              <div className="service-detail-icon">
-                <i className="fas fa-suitcase-rolling"></i>
-              </div>
-              <h3>VOYAGE INTER-VILLES</h3>
-              <div className="service-detail-content">
-                <p>
-                  Notre service de transport inter-villes vous propose une alternative confortable 
-                  et personnalisée aux trains et avions pour vos déplacements en France et en Europe. 
-                  Profitez d'un voyage de porte à porte sans rupture de charge et sans 
-                  les contraintes des transports en commun.
-                </p>
-                <ul className="service-features">
-                  <li><i className="fas fa-check"></i>Transport direct de porte à porte</li>
-                  <li><i className="fas fa-check"></i>Aucune limite de bagages</li>
-                  <li><i className="fas fa-check"></i>Possibilité de faire des arrêts sur votre trajet</li>
-                  <li><i className="fas fa-check"></i>Départs et arrivées selon votre planning</li>
-                  <li><i className="fas fa-check"></i>Confidentialité et intimité totales</li>
-                </ul>
-              </div>
-            </div>
-            
-            <div className="service-detail-image slide-in-right">
-              <img src="/assets/images/intercity-travel.jpg" alt="Voyage inter-villes" loading="lazy" />
-            </div>
-          </div>
-          
-          <div className="services-grid reverse">
-            <div className="service-detail-image slide-in-left">
-              <img src="/assets/images/european-travel.jpg" alt="Voyage européen" loading="lazy" />
-            </div>
-            
-            <div className="service-detail-card slide-in-right">
-              <div className="service-detail-icon">
-                <i className="fas fa-globe-europe"></i>
-              </div>
-              <h3>VOYAGES EUROPÉENS</h3>
-              <div className="service-detail-content">
-                <p>
-                  Découvrez l'Europe à votre rythme avec notre service de transport international. 
-                  Nos chauffeurs expérimentés, familiers avec les routes internationales et les 
-                  formalités aux frontières, vous garantissent un voyage serein vers les 
-                  principales capitales et villes européennes.
-                </p>
-                <ul className="service-features">
-                  <li><i className="fas fa-check"></i>Service disponible vers toutes les grandes villes européennes</li>
-                  <li><i className="fas fa-check"></i>Chauffeurs multilingues</li>
-                  <li><i className="fas fa-check"></i>Connaissance des formalités douanières</li>
-                  <li><i className="fas fa-check"></i>Possibilité de voyage multi-destinations</li>
-                  <li><i className="fas fa-check"></i>Support 24/7 pendant votre séjour</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          
-          <div className="services-grid">
-            <div className="service-detail-card slide-in-left">
-              <div className="service-detail-icon">
-                <i className="fas fa-hiking"></i>
-              </div>
-              <h3>EXCURSIONS & CIRCUITS TOURISTIQUES</h3>
-              <div className="service-detail-content">
-                <p>
-                  Transformez votre transfert longue distance en une expérience touristique enrichissante
-                  avec nos circuits sur mesure. Visitez des sites d'intérêt sur votre route, 
-                  profitez de haltes gastronomiques dans des restaurants sélectionnés, 
-                  et découvrez des lieux insolites hors des sentiers battus.
-                </p>
-                <ul className="service-features">
-                  <li><i className="fas fa-check"></i>Itinéraires personnalisés selon vos centres d'intérêt</li>
-                  <li><i className="fas fa-check"></i>Chauffeurs avec connaissance locale approfondie</li>
-                  <li><i className="fas fa-check"></i>Réservations dans des établissements partenaires</li>
-                  <li><i className="fas fa-check"></i>Service de guide disponible en option</li>
-                  <li><i className="fas fa-check"></i>Flexibilité pour adapter le programme en cours de route</li>
-                </ul>
-              </div>
-            </div>
-            
-            <div className="service-detail-image slide-in-right">
-              <img src="/assets/images/tourist-excursion.jpg" alt="Excursion touristique" loading="lazy" />
-            </div>
-          </div>
-        </div>
-      </div>
-      
       <div className="destinations-section">
         <div className="container">
           <h2>DESTINATIONS POPULAIRES</h2>
@@ -258,8 +168,8 @@ const LongDistancePage = () => {
           <div className="destinations-note">
             <p>
               <i className="fas fa-info-circle"></i>
-              Ces prix sont donnés à titre indicatif pour un trajet en berline premium et peuvent varier selon
-              la date, l'heure, le nombre de passagers et le type de véhicule. Contactez-nous pour un devis personnalisé.
+              Ces prix sont donnés à titre indicatif peuvant varier selon
+              la date, l'heure et le nombre de passagers. Contactez-nous pour un devis personnalisé.
             </p>
           </div>
         </div>
@@ -267,6 +177,11 @@ const LongDistancePage = () => {
       
       <div className="client-testimonial">
         <div className="container">
+          <div className="section-heading">
+            <h2>CE QUE DISENT NOS CLIENTS</h2>
+            <p className="subtitle">Témoignages de passagers ayant utilisé notre service longue distance</p>
+          </div>
+          
           <div className="testimonial-content">
             <div className="testimonial-quote">
               <i className="fas fa-quote-left"></i>

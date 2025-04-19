@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import BookingForm from '../components/booking/BookingForm';
 import '../styles/pages/ServicePage.css';
+import airportTransferHero from '../assets/images/airport-transfer-hero.jpg';
 
 // Animation utility hook
 const useIntersectionObserver = (options = {}) => {
@@ -93,7 +94,7 @@ const AirportTransferPage = () => {
       <div 
         ref={headerRef} 
         className={`service-hero ${headerVisible ? 'animate' : ''}`}
-        style={{ backgroundImage: 'url(/assets/images/airport-transfer-hero.jpg)' }}
+        style={{ backgroundImage: `url(${airportTransferHero})` }}
       >
         <div className="service-hero-overlay"></div>
         <div className="service-hero-content">
@@ -146,122 +147,6 @@ const AirportTransferPage = () => {
                     </div>
                   </div>
                 ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div ref={servicesRef} className={`service-details ${servicesVisible ? 'animate' : ''}`}>
-        <div className="container">
-          <h2 className="fade-in">NOS SERVICES DE TRANSFERT</h2>
-          <p className="subtitle fade-in">Des solutions adaptées à chaque situation</p>
-          
-          <div className="services-grid">
-            <div className="service-detail-card slide-in-left">
-              <div className="service-detail-icon">
-                <i className="fas fa-plane-arrival"></i>
-              </div>
-              <h3>ACCUEIL AÉROPORT</h3>
-              <div className="service-detail-content">
-                <p>
-                  Après un vol, profitez d'un accueil personnalisé et chaleureux. Votre chauffeur surveille l'arrivée
-                  de votre vol en temps réel et vous attend en zone d'arrivée avec une pancarte à votre nom. 
-                  Il prend en charge vos bagages et vous conduit à votre véhicule dans les meilleures conditions.
-                </p>
-                <ul className="service-features">
-                  <li><i className="fas fa-check"></i>Suivi en temps réel de votre vol</li>
-                  <li><i className="fas fa-check"></i>Attente incluse en cas de retard</li>
-                  <li><i className="fas fa-check"></i>Accueil avec pancarte nominative</li>
-                  <li><i className="fas fa-check"></i>Assistance bagages complète</li>
-                  <li><i className="fas fa-check"></i>Bouteilles d'eau fraîches à bord</li>
-                </ul>
-              </div>
-            </div>
-            
-            <div className="service-detail-image slide-in-right">
-              <img src="/assets/images/airport-arrival-service.jpg" alt="Accueil aéroport" loading="lazy" />
-            </div>
-          </div>
-          
-          <div className="services-grid reverse">
-            <div className="service-detail-image slide-in-left">
-              <img src="/assets/images/airport-departure-service.jpg" alt="Départ aéroport" loading="lazy" />
-            </div>
-            
-            <div className="service-detail-card slide-in-right">
-              <div className="service-detail-icon">
-                <i className="fas fa-plane-departure"></i>
-              </div>
-              <h3>DÉPART AÉROPORT</h3>
-              <div className="service-detail-content">
-                <p>
-                  Débutez votre voyage sereinement avec notre service de départ aéroport. Votre chauffeur
-                  arrive à l'adresse de votre choix, vous aide avec vos bagages et vous conduit directement
-                  à votre terminal de départ. Nous optimisons l'heure de prise en charge en fonction
-                  du trafic et des conditions à l'aéroport.
-                </p>
-                <ul className="service-features">
-                  <li><i className="fas fa-check"></i>Ponctualité garantie</li>
-                  <li><i className="fas fa-check"></i>Estimation du trafic en temps réel</li>
-                  <li><i className="fas fa-check"></i>Dépose au plus près de votre terminal</li>
-                  <li><i className="fas fa-check"></i>Aide avec les bagages jusqu'au check-in</li>
-                  <li><i className="fas fa-check"></i>Relaxation à bord avant le vol</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          
-          <div className="services-grid">
-            <div className="service-detail-card slide-in-left">
-              <div className="service-detail-icon">
-                <i className="fas fa-train"></i>
-              </div>
-              <h3>TRANSFERT GARE</h3>
-              <div className="service-detail-content">
-                <p>
-                  Voyagez vers ou depuis les principales gares parisiennes dans les meilleures conditions.
-                  Nos chauffeurs connaissent parfaitement les accès spécifiques à chaque gare et vous
-                  déposent ou vous accueillent au plus près des quais pour un transfert optimal.
-                </p>
-                <ul className="service-features">
-                  <li><i className="fas fa-check"></i>Accès optimisés aux différentes gares</li>
-                  <li><i className="fas fa-check"></i>Suivi en temps réel des trains</li>
-                  <li><i className="fas fa-check"></i>Portage des bagages inclus</li>
-                  <li><i className="fas fa-check"></i>Coordination avec les contrôleurs pour les trains spéciaux</li>
-                  <li><i className="fas fa-check"></i>Service VIP pour les voyageurs Business Première</li>
-                </ul>
-              </div>
-            </div>
-            
-            <div className="service-detail-image slide-in-right">
-              <img src="/assets/images/train-station-transfer.jpg" alt="Transfert gare" loading="lazy" />
-            </div>
-          </div>
-          
-          <div className="services-grid reverse">
-            <div className="service-detail-image slide-in-left">
-              <img src="/assets/images/inter-terminal-transfer.jpg" alt="Transfert inter-terminaux" loading="lazy" />
-            </div>
-            
-            <div className="service-detail-card slide-in-right">
-              <div className="service-detail-icon">
-                <i className="fas fa-exchange-alt"></i>
-              </div>
-              <h3>TRANSFERT INTER-TERMINAUX & INTER-GARES</h3>
-              <div className="service-detail-content">
-                <p>
-                  Pour vos correspondances entre différents terminaux d'aéroport ou entre les gares 
-                  parisiennes, notre service facilite grandement vos déplacements. Nous gérons le timing
-                  de votre transfert avec précision pour garantir votre correspondance en toute sérénité.
-                </p>
-                <ul className="service-features">
-                  <li><i className="fas fa-check"></i>Optimisation du temps de transfert</li>
-                  <li><i className="fas fa-check"></i>Connaissance approfondie des raccourcis</li>
-                  <li><i className="fas fa-check"></i>Coordination avec les services aéroportuaires</li>
-                  <li><i className="fas fa-check"></i>Option Fast Track disponible</li>
-                  <li><i className="fas fa-check"></i>Assistance spéciale pour les familles</li>
-                </ul>
               </div>
             </div>
           </div>
@@ -400,6 +285,11 @@ const AirportTransferPage = () => {
       
       <div className="client-testimonial">
         <div className="container">
+          <div className="section-heading">
+            <h2>TÉMOIGNAGES DE NOS CLIENTS</h2>
+            <p className="subtitle">Ce que disent nos voyageurs sur nos services de transfert aéroport</p>
+          </div>
+          
           <div className="testimonial-content">
             <div className="testimonial-quote">
               <i className="fas fa-quote-left"></i>

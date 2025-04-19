@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import '../../styles/components/Footer.css';
+import logo from '../../assets/images/logo.png'; // Adjust the path as necessary
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -9,7 +10,7 @@ const Footer = () => {
       <div className="footer-top">
         <div className="footer-logo">
           <Link to="/">
-            <img src="/assets/images/logo.png" alt="Taxi VLB Logo" />
+            <img src={logo} alt="Taxi VLB Logo" />
           </Link>
         </div>
         
