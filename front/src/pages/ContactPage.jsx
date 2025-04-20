@@ -202,17 +202,6 @@ const ContactPage = () => {
               <h3>Transport avec Taxi VLB</h3>
               <p>Découvrez notre Mercedes Classe V et nos services premium</p>
             </div>
-            
-            <div className="video-card">
-              <div className="video-wrapper phone-format">
-              <video controls>
-                <source src={interiorVideo} type="video/mp4" />
-                Votre navigateur ne supporte pas la lecture de vidéos.
-              </video>
-              </div>
-              <h3>Transferts aéroport et gare</h3>
-              <p>Voyagez en toute sérénité avec notre service de transfert</p>
-            </div>
           </div>
         </div>
       </div>
