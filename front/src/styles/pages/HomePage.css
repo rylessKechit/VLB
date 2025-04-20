@@ -1089,3 +1089,88 @@
     font-size: 1.1rem;
   }
 }
+
+/* Solution avec espacements optimaux et bouton scroll toujours visible */
+@media (max-width: 768px) {
+  .hero-section.fullscreen {
+    height: 100vh;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    position: relative;
+  }
+  
+  .hero-content {
+    margin: 0 !important;
+    padding: 0 20px !important;
+    width: 100% !important;
+    text-align: center !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+  }
+  
+  /* Espacement entre les éléments */
+  .hero-content h1 {
+    margin: 0 0 30px 0 !important;
+  }
+  
+  .hero-content .subtitle {
+    margin: 0 0 35px 0 !important;
+  }
+  
+  .hero-content p {
+    margin: 0 0 40px 0 !important;
+  }
+  
+  .hero-buttons {
+    margin: 30px 0 0 0 !important;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+  
+  /* Position du bouton scroll-down pour qu'il soit visible sur l'écran initial */
+  .scroll-down-button {
+    position: absolute;
+    bottom: 40px; /* Retour à la position d'origine */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+}
+
+/* Pour les très petits écrans */
+@media (max-width: 480px) {
+  .hero-content {
+    gap: 20px;
+  }
+  
+  .hero-content h1 {
+    margin: 0 0 20px 0 !important;
+  }
+  
+  .hero-content .subtitle {
+    margin: 0 0 25px 0 !important;
+  }
+  
+  .hero-content p {
+    margin: 0 0 30px 0 !important;
+  }
+  
+  .hero-buttons {
+    gap: 20px;
+  }
+  
+  .scroll-down-button {
+    bottom: 125px; /* Position ajustée pour petits écrans */
+  }
+}
