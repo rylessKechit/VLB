@@ -70,15 +70,15 @@ const ContactPage = () => {
   return (
     <div className="contact-page">
       <div className="contact-header">
-        <h1>CONTACTEZ TAXI VLB À VERRIÈRES LE BUISSON</h1>
+        <h1>CONTACTEZ TAXI VLB À VERRIÈRES-LE-BUISSON</h1>
       </div>
       
       <div className="contact-container">
         <div className="contact-info">
-          <h2>POSEZ-MOI VOS QUESTIONS</h2>
+          <h2>CONTACTEZ-NOUS</h2>
           <p>
-            N'hésitez pas à m'adresser vos demandes à l'aide de ce formulaire de contact. 
-            Je vous répondrai dans les plus brefs délais.
+            Pour toute réservation ou demande d'information, n'hésitez pas à nous contacter. 
+            Nous sommes à votre disposition pour répondre à vos questions.
           </p>
           
           <div className="contact-details">
@@ -101,8 +101,8 @@ const ContactPage = () => {
             <div className="contact-item">
               <i className="fas fa-map-marker-alt"></i>
               <div>
-                <h3>ADRESSE</h3>
-                <p>Verrières-le-Buisson, 91370</p>
+                <h3>ZONE D'INTERVENTION</h3>
+                <p>Verrières-le-Buisson et environs</p>
               </div>
             </div>
             
@@ -183,12 +183,12 @@ const ContactPage = () => {
         </div>
       </div>
 
-      {/* Section vidéos à ajouter juste après le formulaire de contact */}
+      {/* Section vidéos */}
       <div className="videos-section">
         <div className="container">
           <div className="section-heading">
-            <h2>DÉCOUVREZ NOTRE SERVICE EN VIDÉO</h2>
-            <p className="subtitle">Visionnez nos vidéos pour découvrir l'expérience Taxi VLB</p>
+            <h2>DÉCOUVREZ NOTRE SERVICE</h2>
+            <p className="subtitle">Présentation de notre service de taxi</p>
           </div>
           
           <div className="videos-container">
@@ -200,7 +200,7 @@ const ContactPage = () => {
               </video>
               </div>
               <h3>Transport avec Taxi VLB</h3>
-              <p>Découvrez notre Mercedes Classe V et nos services premium</p>
+              <p>Découvrez notre Mercedes Classe V et nos services de taxi</p>
             </div>
           </div>
         </div>

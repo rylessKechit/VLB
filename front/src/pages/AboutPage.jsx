@@ -43,61 +43,61 @@ const AboutPage = () => {
   // Valeurs de l'entreprise
   const companyValues = [
     {
-      title: "Excellence",
-      description: "Nous visons l'excellence dans chaque aspect de notre service, du premier contact à la fin de votre trajet.",
-      icon: "star"
-    },
-    {
-      title: "Fiabilité",
-      description: "Notre engagement envers la ponctualité et la fiabilité est absolu, car nous savons que votre temps est précieux.",
+      title: "Ponctualité",
+      description: "Nous respectons votre temps et garantissons des arrivées à l'heure pour tous vos trajets.",
       icon: "clock"
     },
     {
-      title: "Personnalisation",
-      description: "Chaque client est unique. Nous adaptons notre service à vos préférences et exigences spécifiques.",
-      icon: "user-cog"
+      title: "Fiabilité",
+      description: "Un service disponible 24h/24 et 7j/7, avec des véhicules soigneusement entretenus.",
+      icon: "check-double"
     },
     {
-      title: "Discrétion",
-      description: "Nous garantissons une confidentialité totale et une approche discrète pour tous nos clients.",
-      icon: "user-secret"
+      title: "Transparence",
+      description: "Des tarifs clairs et compétitifs, sans frais cachés ni surprises désagréables.",
+      icon: "file-invoice"
     },
     {
-      title: "Innovation",
-      description: "Nous intégrons constamment les dernières technologies pour améliorer votre expérience de transport.",
-      icon: "lightbulb"
+      title: "Propreté",
+      description: "Des véhicules propres et bien entretenus pour chaque course.",
+      icon: "spray-can"
     },
     {
-      title: "Responsabilité",
-      description: "Notre engagement envers l'environnement et la société se reflète dans nos pratiques quotidiennes.",
-      icon: "leaf"
+      title: "Courtoisie",
+      description: "Des chauffeurs professionnels, courtois et à l'écoute de vos besoins.",
+      icon: "handshake"
+    },
+    {
+      title: "Sécurité",
+      description: "Votre sécurité est notre priorité absolue sur chaque trajet.",
+      icon: "shield-alt"
     }
   ];
 
-  // Équipe de direction
+  // Équipe
   const teamMembers = [
     {
       name: "Pierre Guttin",
-      position: "Fondateur & Directeur",
-      bio: "Avec plus de 15 ans d'expérience dans le transport VIP, Pierre a fondé l'entreprise avec la vision d'offrir un service de transport d'exception qui dépasse les attentes des clients les plus exigeants.",
+      position: "Fondateur",
+      bio: "Avec plus de 15 ans d'expérience dans le transport, Pierre a fondé Taxi VLB avec la vision d'offrir un service de taxi fiable et accessible à tous.",
       image: "/assets/images/team-founder.jpg"
     },
     {
       name: "Sophie Lambert",
-      position: "Directrice des Opérations",
-      bio: "Experte en logistique et gestion de flotte, Sophie veille à ce que chaque trajet soit parfaitement planifié et exécuté selon les plus hauts standards de qualité.",
+      position: "Responsable des Réservations",
+      bio: "Sophie gère les réservations et s'assure que chaque client bénéficie d'un service ponctuel et professionnel.",
       image: "/assets/images/team-operations.jpg"
     },
     {
       name: "Alexandre Dupont",
       position: "Responsable Service Client",
-      bio: "Passionné par l'excellence du service, Alexandre et son équipe sont disponibles 24/7 pour garantir une expérience client irréprochable et personnalisée.",
+      bio: "Alexandre et son équipe sont à votre écoute pour répondre à toutes vos questions et demandes.",
       image: "/assets/images/team-customer.jpg"
     },
     {
       name: "Marie Lefèvre",
-      position: "Chef des Chauffeurs",
-      bio: "Ancienne chauffeure VIP pour des diplomates, Marie sélectionne et forme personnellement chaque chauffeur selon des critères rigoureux d'excellence et de professionnalisme.",
+      position: "Responsable des Chauffeurs",
+      bio: "Marie forme nos chauffeurs pour garantir un service professionnel et une conduite sûre.",
       image: "/assets/images/team-drivers.jpg"
     }
   ];
@@ -114,10 +114,10 @@ const AboutPage = () => {
           <h1 className="slide-in-left">À PROPOS DE NOUS</h1>
           <div className="separator">
             <span className="separator-line"></span>
-            <span className="separator-icon"><i className="fas fa-gem"></i></span>
+            <span className="separator-icon"><i className="fas fa-taxi"></i></span>
             <span className="separator-line"></span>
           </div>
-          <p className="slide-in-right">Découvrez notre histoire, notre vision et notre engagement envers l'excellence</p>
+          <p className="slide-in-right">Découvrez l'histoire et les valeurs de Taxi VLB</p>
         </div>
       </div>
       
@@ -129,35 +129,33 @@ const AboutPage = () => {
             </div>
             <div className="story-text slide-in-left">
               <p>
-                Fondée en 2009 par Pierre Guttin, notre entreprise est née d'une passion pour l'excellence et 
-                d'une vision claire : transformer le transport privé en une expérience exceptionnelle où chaque 
-                détail compte.
+                Fondée en 2009 par Pierre Guttin, Taxi VLB est née d'une volonté de proposer un service 
+                de taxi fiable et professionnel à Verrières-le-Buisson et ses environs.
               </p>
               <p>
-                Ce qui a commencé comme un service de chauffeur privé avec une seule berline s'est rapidement 
-                développé pour devenir une référence dans le transport de luxe. Notre croissance a toujours été 
-                guidée par une obsession de la qualité et un désir constant de dépasser les attentes de nos clients.
+                Nous avons commencé avec un seul véhicule et une idée simple : offrir un service de qualité 
+                à un prix juste. Au fil des années, grâce à la satisfaction de nos clients, nous avons 
+                développé notre activité tout en restant fidèles à nos valeurs de départ.
               </p>
               <p>
-                Au fil des années, nous avons cultivé des relations privilégiées avec une clientèle exigeante : 
-                cadres dirigeants, personnalités, familles fortunées et entreprises internationales qui partagent 
-                notre vision de l'excellence.
+                Notre clientèle variée, composée de particuliers, de professionnels et de familles, 
+                nous fait confiance pour leurs déplacements quotidiens, leurs transferts aéroport 
+                et leurs trajets longue distance.
               </p>
               <p>
-                Aujourd'hui, notre entreprise continue d'évoluer, en intégrant les dernières innovations et en 
-                développant de nouveaux services, tout en restant fidèle à ce qui a fait notre succès : un service 
-                personnalisé d'exception, une attention méticuleuse aux détails et une discrétion absolue.
+                Aujourd'hui, Taxi VLB continue de grandir en maintenant son engagement envers 
+                un service de qualité, la ponctualité et la satisfaction client.
               </p>
             </div>
             <div className="story-image slide-in-right">
-              <img src="/assets/images/about-founder.jpg" alt="Notre fondateur" />
+              <img src="/assets/images/about-founder.jpg" alt="Notre équipe" />
             </div>
           </div>
           
-          {/* Citation du fondateur séparée pour éviter le chevauchement */}
+          {/* Citation du fondateur */}
           <div className="quote-container">
             <div className="founder-quote-separate">
-              <p>"Notre mission est de créer une expérience de transport qui dépasse le simple déplacement pour devenir un moment privilégié."</p>
+              <p>"Notre objectif est de fournir un service de taxi fiable et de qualité, adapté aux besoins de chacun."</p>
               <span className="quote-author">Pierre Guttin, Fondateur</span>
             </div>
           </div>
@@ -167,7 +165,7 @@ const AboutPage = () => {
       <div ref={valuesRef} className={`service-details values-section ${valuesVisible ? 'animate' : ''}`}>
         <div className="container">
           <h2 className="fade-in">NOS VALEURS</h2>
-          <p className="subtitle fade-in">Les principes qui guident chacune de nos actions</p>
+          <p className="subtitle fade-in">Les principes qui guident notre service</p>
           
           <div className="values-grid">
             {companyValues.map((value, index) => (
@@ -196,38 +194,38 @@ const AboutPage = () => {
             <div className="philosophy-text">
               <h2>NOTRE PHILOSOPHIE</h2>
               <p>
-                Notre approche est fondée sur l'idée que chaque trajet est une opportunité de créer une 
-                expérience mémorable. Nous ne nous contentons pas de vous transporter d'un point A à un point B ; 
-                nous créons un moment privilégié où vous pouvez vous détendre, travailler ou simplement profiter 
-                du voyage dans un environnement parfaitement adapté à vos besoins.
+                Chez Taxi VLB, nous croyons qu'un service de taxi doit être simple, fiable et accessible. 
+                Notre approche consiste à vous offrir un transport confortable et ponctuel, 
+                que ce soit pour vos déplacements quotidiens, vos rendez-vous professionnels 
+                ou vos voyages plus longs.
               </p>
               <ul className="philosophy-list">
                 <li>
                   <span className="list-marker">01</span>
                   <div>
-                    <h4>Écoute attentive</h4>
-                    <p>Nous prenons le temps de comprendre vos besoins spécifiques pour personnaliser notre service.</p>
+                    <h4>Service client</h4>
+                    <p>Nous sommes à l'écoute de vos besoins pour vous offrir le service le plus adapté.</p>
                   </div>
                 </li>
                 <li>
                   <span className="list-marker">02</span>
                   <div>
-                    <h4>Anticipation</h4>
-                    <p>Nous anticipons chaque détail pour que votre expérience soit parfaitement fluide et sans stress.</p>
+                    <h4>Simplicité</h4>
+                    <p>Réservation facile par téléphone, en ligne ou par email pour votre confort.</p>
                   </div>
                 </li>
                 <li>
                   <span className="list-marker">03</span>
                   <div>
-                    <h4>Excellence constante</h4>
-                    <p>Notre engagement envers la qualité se reflète dans chaque aspect de notre service, du début à la fin.</p>
+                    <h4>Qualité constante</h4>
+                    <p>Nous maintenons un niveau de service élevé sur chaque course.</p>
                   </div>
                 </li>
                 <li>
                   <span className="list-marker">04</span>
                   <div>
-                    <h4>Évolution continue</h4>
-                    <p>Nous cherchons constamment à nous améliorer et à innover pour dépasser vos attentes.</p>
+                    <h4>Amélioration continue</h4>
+                    <p>Nous écoutons vos retours pour améliorer constamment notre service.</p>
                   </div>
                 </li>
               </ul>
@@ -239,15 +237,15 @@ const AboutPage = () => {
       <div className="cta-banner">
         <div className="container">
           <div className="cta-content">
-            <h3>Prêt à découvrir la différence ?</h3>
-            <p>Faites l'expérience d'un service de transport qui dépasse toutes vos attentes</p>
+            <h3>Besoin d'un taxi fiable ?</h3>
+            <p>Contactez-nous pour votre prochain trajet</p>
             <div className="cta-buttons">
               <Link to="/contact" className="btn btn-primary">
                 Contactez-nous
               </Link>
               <Link to="/flotte-vehicules" className="btn btn-outline">
                 <i className="fas fa-car"></i>
-                Découvrir notre flotte
+                Découvrir notre véhicule
               </Link>
             </div>
           </div>

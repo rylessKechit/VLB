@@ -44,15 +44,7 @@ const Footer = () => {
         </div>
         
         <div className="footer-copyright">
-          &copy; {currentYear} GUTTIN PIERRE LANCELOT
-        </div>
-        
-        <div className="footer-admin">
-          <a href="/admin">METTRE À JOUR MON SITE INTERNET</a>
-        </div>
-        
-        <div className="footer-credits">
-          <span>CRÉÉ PAR <a href="https://example.com" target="_blank" rel="noopener noreferrer">VOTRE AGENCE</a></span>
+          &copy; {currentYear} TAXI VLB
         </div>
       </div>
     </footer>

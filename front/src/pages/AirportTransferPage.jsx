@@ -58,33 +58,33 @@ const AirportTransferPage = () => {
   // Services proposés
   const transferServices = [
     {
-      title: 'Accueil personnalisé',
-      description: 'Votre chauffeur vous attend en zone d\'arrivée avec votre nom',
+      title: 'Accueil en zone d\'arrivée',
+      description: 'Votre chauffeur vous attend avec une pancarte à votre nom',
       icon: 'id-card'
     },
     {
       title: 'Suivi des vols',
-      description: 'Monitoring des horaires de vol et adaptation en cas de retard',
+      description: 'Surveillance des horaires et adaptation en cas de retard',
       icon: 'plane-arrival'
     },
     {
-      title: 'Assistance bagages',
-      description: 'Prise en charge complète de vos bagages',
+      title: 'Aide aux bagages',
+      description: 'Assistance pour le transport de vos valises',
       icon: 'luggage-cart'
     },
     {
-      title: 'Accès prioritaire',
-      description: 'Dépose au plus près des terminaux et gares',
+      title: 'Dépose pratique',
+      description: 'Dépose au plus près des terminaux et des gares',
       icon: 'ticket-alt'
     },
     {
-      title: 'Confort premium',
-      description: 'Véhicules haut de gamme avec équipements luxueux',
-      icon: 'glass-martini-alt'
+      title: 'Véhicule confortable',
+      description: 'Mercedes Classe V spacieuse et bien équipée',
+      icon: 'car'
     },
     {
       title: 'Service 24/7',
-      description: 'Disponibilité permanente, jour et nuit, 7j/7',
+      description: 'Disponible tous les jours, à toute heure',
       icon: 'clock'
     }
   ];
@@ -104,7 +104,7 @@ const AirportTransferPage = () => {
             <span className="separator-icon"><i className="fas fa-plane"></i></span>
             <span className="separator-line"></span>
           </div>
-          <p className="slide-in-right">Commencez et terminez vos voyages dans le confort et la sérénité</p>
+          <p className="slide-in-right">Service de taxi fiable pour vos trajets vers et depuis les aéroports et gares</p>
         </div>
       </div>
       
@@ -112,21 +112,19 @@ const AirportTransferPage = () => {
         <div className="container">
           <div className="service-overview-content">
             <div className="gold-accent slide-in-left">
-              <h2>UN SERVICE DE TRANSFERT D'EXCEPTION</h2>
-              <p className="subtitle">La garantie d'arriver à destination dans des conditions optimales</p>
+              <h2>UN SERVICE DE TRANSFERT PRATIQUE ET FIABLE</h2>
+              <p className="subtitle">La solution simple pour vos déplacements vers les aéroports et gares</p>
             </div>
             
             <div className="overview-text fade-in">
               <p>
-                Notre service de transfert aéroport et gare transforme les moments souvent stressants 
-                de début et de fin de voyage en une expérience agréable et sereine. Nous prenons en charge 
-                tous les aspects logistiques pour vous permettre de vous concentrer uniquement sur 
-                votre voyage.
+                Notre service de taxi assure vos transferts entre votre domicile, bureau ou hôtel et tous les 
+                aéroports et gares d'Île-de-France. Nous vous proposons une solution pratique et ponctuelle 
+                pour vos déplacements professionnels ou personnels.
               </p>
               <p>
-                Que vous arriviez d'un long vol ou que vous ayez un train à prendre, notre priorité est 
-                de vous offrir un service ponctuel, confortable et personnalisé qui s'adapte parfaitement 
-                à vos besoins spécifiques.
+                Que vous partiez en voyage ou que vous arriviez à destination, notre objectif est 
+                de vous offrir un service ponctuel et confortable, adapté à vos horaires et à vos besoins.
               </p>
             </div>
             
@@ -156,7 +154,7 @@ const AirportTransferPage = () => {
       <div ref={destinationsRef} className={`destinations-section ${destinationsVisible ? 'animate' : ''}`}>
         <div className="container">
           <h2 className="fade-in">AÉROPORTS ET GARES DESSERVIS</h2>
-          <p className="subtitle fade-in">Une couverture complète pour tous vos besoins de transfert</p>
+          <p className="subtitle fade-in">Nous assurons les transferts vers tous les points d'accès importants</p>
           
           <div className="destinations-tabs">
             <div className="tabs-header">
@@ -237,14 +235,14 @@ const AirportTransferPage = () => {
       <div className="process-section">
         <div className="container">
           <h2>COMMENT ÇA FONCTIONNE</h2>
-          <p className="subtitle">Un processus simple pour un service impeccable</p>
+          <p className="subtitle">Un processus simple pour vos transferts</p>
           
           <div className="process-steps">
             <div className="process-step">
               <div className="step-number">1</div>
               <div className="step-content">
                 <h3>Réservation</h3>
-                <p>Réservez en ligne, par téléphone ou par email en précisant vos informations de vol ou de train</p>
+                <p>Réservez votre taxi en ligne, par téléphone ou par email en indiquant vos informations de vol ou de train</p>
               </div>
             </div>
             
@@ -252,7 +250,7 @@ const AirportTransferPage = () => {
               <div className="step-number">2</div>
               <div className="step-content">
                 <h3>Confirmation</h3>
-                <p>Recevez une confirmation détaillée avec toutes les informations sur votre transfert</p>
+                <p>Recevez une confirmation avec tous les détails de votre transfert</p>
               </div>
             </div>
             
@@ -260,15 +258,15 @@ const AirportTransferPage = () => {
               <div className="step-number">3</div>
               <div className="step-content">
                 <h3>Suivi</h3>
-                <p>Notre équipe surveille votre vol/train et ajuste le service en cas de modifications</p>
+                <p>Nous suivons votre vol ou train et adaptons notre service en cas de changement</p>
               </div>
             </div>
             
             <div className="process-step">
               <div className="step-number">4</div>
               <div className="step-content">
-                <h3>Accueil</h3>
-                <p>Votre chauffeur vous attend avec une pancarte à votre nom à l'arrivée</p>
+                <h3>Prise en charge</h3>
+                <p>Votre chauffeur vous attend à l'arrivée avec une pancarte à votre nom</p>
               </div>
             </div>
             
@@ -276,7 +274,7 @@ const AirportTransferPage = () => {
               <div className="step-number">5</div>
               <div className="step-content">
                 <h3>Transfert</h3>
-                <p>Profitez d'un trajet confortable dans un véhicule premium jusqu'à votre destination</p>
+                <p>Profitez d'un trajet confortable dans notre véhicule jusqu'à votre destination</p>
               </div>
             </div>
           </div>
@@ -287,7 +285,7 @@ const AirportTransferPage = () => {
         <div className="container">
           <div className="section-heading">
             <h2>TÉMOIGNAGES DE NOS CLIENTS</h2>
-            <p className="subtitle">Ce que disent nos voyageurs sur nos services de transfert aéroport</p>
+            <p className="subtitle">Ce que disent nos clients sur nos services de transfert</p>
           </div>
           
           <div className="testimonial-content">
@@ -295,14 +293,14 @@ const AirportTransferPage = () => {
               <i className="fas fa-quote-left"></i>
             </div>
             <p>
-              "Un service exceptionnel qui a transformé mon expérience de voyage. Mon vol a été retardé de 2 heures,
-              mais le chauffeur était là à m'attendre à mon arrivée avec un grand sourire. Le véhicule était impeccable,
-              avec de l'eau fraîche et des serviettes rafraîchissantes. Après un long vol, c'était exactement ce dont
-              j'avais besoin. Je recommande vivement ce service à tous les voyageurs exigeants."
+              "Un service de taxi très pratique pour mes transferts à l'aéroport. Mon vol a été retardé de 2 heures,
+              mais le chauffeur était là à m'attendre à mon arrivée. Le véhicule était propre et confortable.
+              Le chauffeur m'a aidé avec mes bagages et m'a déposé directement devant mon domicile.
+              Je recommande ce service pour ceux qui cherchent un transfert fiable."
             </p>
             <div className="testimonial-author">
               <div className="author-name">Sophie M.</div>
-              <div className="author-title">Voyageuse fréquente</div>
+              <div className="author-title">Voyageuse régulière</div>
             </div>
           </div>
         </div>
@@ -312,7 +310,7 @@ const AirportTransferPage = () => {
         <div className="container">
           <div className="section-heading">
             <h2>RÉSERVEZ VOTRE TRANSFERT</h2>
-            <p className="subtitle">Commencez et terminez votre voyage en toute sérénité</p>
+            <p className="subtitle">Réservation simple et rapide pour votre prochain voyage</p>
           </div>
           
           <div className={`booking-container fade-in ${bookingVisible ? 'visible' : ''}`}>
@@ -324,11 +322,11 @@ const AirportTransferPage = () => {
       <div className="cta-banner">
         <div className="container">
           <div className="cta-content">
-            <h3>Besoin d'un service spécial pour votre transfert ?</h3>
-            <p>Notre équipe est à votre disposition pour répondre à toutes vos exigences</p>
+            <h3>Besoin d'informations supplémentaires ?</h3>
+            <p>Notre équipe est à votre disposition pour répondre à vos questions</p>
             <div className="cta-buttons">
               <Link to="/contact" className="btn btn-primary">
-                Demande personnalisée
+                Contactez-nous
               </Link>
               <a href="tel:+33600000000" className="btn btn-outline">
                 <i className="fas fa-phone"></i>

@@ -70,27 +70,27 @@ const HomePage = () => {
     {
       name: 'Martin Dupont',
       role: 'Cadre commercial',
-      text: 'Service exceptionnel pour mes déplacements professionnels. Le chauffeur était ponctuel, la voiture impeccable et le trajet confortable. Je recommande vivement ce service pour tous vos déplacements d\'affaires.',
+      text: 'Service de qualité pour mes déplacements professionnels. Le chauffeur était ponctuel, le véhicule propre et confortable. Je recommande ce service de taxi fiable.',
     },
     {
       name: 'Émilie Laurent',
-      role: 'Voyageuse fréquente',
-      text: 'Un service remarquable ! J\'utilise régulièrement ce taxi pour mes transferts vers CDG et je n\'ai jamais été déçue. Le chauffeur suit mon vol et est toujours là à mon arrivée, même en cas de retard. Un vrai confort après un long voyage.',
+      role: 'Voyageuse régulière',
+      text: 'Un service de taxi pratique ! J\'utilise régulièrement cette compagnie pour mes trajets vers CDG et je suis toujours satisfaite. Le chauffeur suit mon vol et m\'attend à l\'arrivée.',
     },
     {
       name: 'Thomas Moreau',
       role: 'Chef d\'entreprise',
-      text: 'La Mercedes Classe V est parfaite pour les réunions mobiles. J\'ai pu travailler confortablement pendant mon trajet grâce au WiFi et à l\'espace généreux. Un gain de temps précieux dans mes journées chargées.',
+      text: 'La Mercedes Classe V est idéale pour les déplacements en groupe. Spacieuse et confortable, elle permet de voyager sereinement avec mes collaborateurs.',
     },
     {
       name: 'Sophie Bertrand',
       role: 'Organisatrice d\'événements',
-      text: 'J\'ai réservé ce service pour le transport de clients VIP lors d\'un événement d\'entreprise. Le professionnalisme du chauffeur et le confort du véhicule ont fait forte impression. Merci pour votre fiabilité !',
+      text: 'J\'ai utilisé ce service pour le transport de nos invités. Le professionnalisme du chauffeur et le confort du véhicule ont été appréciés de tous. Service fiable !',
     },
     {
       name: 'Pierre Lefebvre',
       role: 'Retraité',
-      text: 'À notre âge, voyager peut être stressant. Ce service nous a permis de rejoindre l\'aéroport sereinement. Le chauffeur a été d\'une gentillesse exceptionnelle, nous aidant avec nos bagages et s\'adaptant à notre rythme.',
+      text: 'Service de taxi attentionné pour les personnes âgées. Le chauffeur nous a aidés avec nos bagages et a conduit tranquillement. Parfait pour aller à l\'aéroport sans stress.',
     }
   ];
 
@@ -150,9 +150,9 @@ const HomePage = () => {
           <h1 className="slide-in-left">
             <span className="text-primary">TAXI VLB</span>
           </h1>
-          <p className="subtitle fade-in">Service de transport avec Mercedes Classe V pour une clientèle exigeante</p>
+          <p className="subtitle fade-in">Service de transport de qualité avec Mercedes Classe V pour tous vos trajets</p>
           <p className="slide-in-right">
-            Chauffeur privé haut de gamme pour vos transferts aéroport, gare, événements professionnels et voyages d'affaires.
+            Taxi professionnel à votre service pour vos déplacements quotidiens, transferts aéroport, gare et voyages d'affaires.
             Disponible 24h/24, 7j/7.
           </p>
           <div className="hero-buttons fade-in">
@@ -201,7 +201,7 @@ const HomePage = () => {
         <div className="container">
           <div className="section-heading">
             <h2>SERVICES DE TRANSPORT À VERRIÈRES-LE-BUISSON</h2>
-            <p className="subtitle">Des prestations personnalisées pour tous vos besoins de déplacement</p>
+            <p className="subtitle">Des services adaptés à tous vos besoins de déplacement</p>
           </div>
           
           <div className="services-grid">
@@ -210,7 +210,7 @@ const HomePage = () => {
                 <i className="fas fa-plane-arrival" aria-hidden="true"></i>
               </div>
               <h3>TRANSFERT AÉROPORT</h3>
-              <p>Service de transfert aéroport premium vers CDG, Orly et Beauvais. Suivi des vols, prise en charge des bagages et attente incluse en cas de retard.</p>
+              <p>Service de taxi aéroport vers CDG, Orly et Beauvais. Suivi des vols, aide aux bagages et attente en cas de retard incluse dans nos prestations.</p>
               <Link to="/services-aeroport-gare" className="service-link">
                 Découvrir
                 <i className="fas fa-arrow-right" aria-hidden="true"></i>
@@ -222,7 +222,7 @@ const HomePage = () => {
                 <i className="fas fa-route" aria-hidden="true"></i>
               </div>
               <h3>VOYAGES LONGUE DISTANCE</h3>
-              <p>Confort et luxe pour vos déplacements entre villes, voyages d'affaires et touristiques avec notre Mercedes Classe V. Service sur-mesure sans limite de kilométrage.</p>
+              <p>Confort de notre Mercedes Classe V pour vos trajets entre villes, voyages d'affaires ou touristiques. Tarifs compétitifs pour toutes distances.</p>
               <Link to="/services-longue-distance" className="service-link">
                 Découvrir
                 <i className="fas fa-arrow-right" aria-hidden="true"></i>
@@ -234,7 +234,7 @@ const HomePage = () => {
                 <i className="fas fa-train" aria-hidden="true"></i>
               </div>
               <h3>TRANSPORT GARE</h3>
-              <p>Service de transfert vers les gares parisiennes (Gare du Nord, Gare de Lyon, Gare Montparnasse). Ponctualité et confort garantis pour vos voyages en train.</p>
+              <p>Service de taxi vers les gares parisiennes (Gare du Nord, Gare de Lyon, Gare Montparnasse). Ponctualité et confort garantis pour vos voyages en train.</p>
               <Link to="/services-aeroport-gare" className="service-link">
                 Découvrir
                 <i className="fas fa-arrow-right" aria-hidden="true"></i>
@@ -253,7 +253,7 @@ const HomePage = () => {
         <div className="container">
           <div className="section-heading">
             <h2>NOTRE MERCEDES CLASSE V</h2>
-            <p className="subtitle">Un véhicule d'exception pour une expérience de transport inoubliable</p>
+            <p className="subtitle">Un véhicule spacieux et confortable pour tous vos trajets</p>
           </div>
           
           <div className={`vehicle-showcase fade-in ${vehicleVisible ? 'visible' : ''}`}>
@@ -263,21 +263,21 @@ const HomePage = () => {
             <div className="vehicle-details">
               <h3>Mercedes-Benz Classe V</h3>
               <p className="vehicle-description">
-                Notre Mercedes Classe V est le véhicule idéal pour tous vos déplacements à Verrières-le-Buisson et en Île-de-France, alliant élégance, confort et praticité. 
-                Avec un espace généreux et des aménagements luxueux, il peut accueillir jusqu'à 7 passagers et leurs bagages 
-                dans des conditions optimales de confort.
+                Notre Mercedes Classe V est le véhicule parfait pour tous vos déplacements à Verrières-le-Buisson et en Île-de-France. 
+                Spacieux et confortable, il peut accueillir jusqu'à 7 passagers avec leurs bagages, idéal pour les familles, 
+                les groupes ou les déplacements professionnels.
               </p>
               <ul className="vehicle-features-list">
                 <li><i className="fas fa-check" aria-hidden="true"></i> Jusqu'à 7 passagers</li>
-                <li><i className="fas fa-check" aria-hidden="true"></i> Espace pour 7 bagages</li>
-                <li><i className="fas fa-check" aria-hidden="true"></i> Configuration salon privé</li>
-                <li><i className="fas fa-check" aria-hidden="true"></i> Sièges en cuir confortable</li>
-                <li><i className="fas fa-check" aria-hidden="true"></i> Climatisation multi-zone</li>
-                <li><i className="fas fa-check" aria-hidden="true"></i> Éclairage d'ambiance</li>
-                <li><i className="fas fa-check" aria-hidden="true"></i> WiFi gratuit à bord</li>
-                <li><i className="fas fa-check" aria-hidden="true"></i> Prises de recharge USB</li>
-                <li><i className="fas fa-check" aria-hidden="true"></i> Bouteilles d'eau offertes</li>
-                <li><i className="fas fa-check" aria-hidden="true"></i> Isolation acoustique renforcée</li>
+                <li><i className="fas fa-check" aria-hidden="true"></i> Grand espace bagages</li>
+                <li><i className="fas fa-check" aria-hidden="true"></i> Climatisation efficace</li>
+                <li><i className="fas fa-check" aria-hidden="true"></i> Sièges confortables</li>
+                <li><i className="fas fa-check" aria-hidden="true"></i> Suspension adaptée</li>
+                <li><i className="fas fa-check" aria-hidden="true"></i> Éclairage intérieur</li>
+                <li><i className="fas fa-check" aria-hidden="true"></i> WiFi disponible</li>
+                <li><i className="fas fa-check" aria-hidden="true"></i> Prises USB pour recharge</li>
+                <li><i className="fas fa-check" aria-hidden="true"></i> Eau minérale offerte</li>
+                <li><i className="fas fa-check" aria-hidden="true"></i> Accès facile pour tous</li>
               </ul>
               <a href="#booking" className="btn btn-primary" onClick={(e) => {
                 e.preventDefault();
@@ -300,34 +300,34 @@ const HomePage = () => {
           <div className="experience-content">
             <div className={`experience-text slide-in-left ${experienceVisible ? 'visible' : ''}`}>
               <div className="section-heading text-left">
-                <h2>L'EXPÉRIENCE TAXI À VERRIÈRES-LE-BUISSON</h2>
+                <h2>L'EXPÉRIENCE TAXI VLB À VERRIÈRES-LE-BUISSON</h2>
                 <div className="separator-line"></div>
-                <p>Bien plus qu'un simple transport, une expérience unique</p>
+                <p>Un service de transport fiable et confortable pour tous</p>
               </div>
               <p>
-                Chaque trajet avec notre service de taxi à Verrières-le-Buisson est une expérience raffinée, 
-                où chaque détail est pensé pour répondre à vos attentes les plus exigeantes.
+                Chaque trajet avec notre service de taxi à Verrières-le-Buisson est une expérience agréable et sécurisée, 
+                pensée pour vous offrir le meilleur rapport qualité-prix.
               </p>
               <ul className="experience-features">
                 <li>
-                  <i className="fas fa-gem" aria-hidden="true"></i>
-                  <span>Chauffeur professionnel formé au protocole et à l'étiquette</span>
+                  <i className="fas fa-user-tie" aria-hidden="true"></i>
+                  <span>Chauffeur professionnel et courtois</span>
                 </li>
                 <li>
-                  <i className="fas fa-glass-martini-alt" aria-hidden="true"></i>
-                  <span>Sélection de boissons et rafraîchissements premium à bord</span>
+                  <i className="fas fa-water" aria-hidden="true"></i>
+                  <span>Bouteilles d'eau fraîche à disposition</span>
                 </li>
                 <li>
                   <i className="fas fa-wifi" aria-hidden="true"></i>
-                  <span>Connectivité haut débit WiFi et équipements high-tech</span>
+                  <span>Connexion WiFi gratuite pour rester connecté</span>
                 </li>
                 <li>
-                  <i className="fas fa-shield-alt" aria-hidden="true"></i>
-                  <span>Discrétion absolue et confidentialité garantie durant tout votre trajet</span>
+                  <i className="fas fa-clock" aria-hidden="true"></i>
+                  <span>Ponctualité et ponctualité assurées</span>
                 </li>
               </ul>
               <Link to="/experience-vip" className="btn btn-primary">
-                Découvrir l'expérience
+                Découvrir nos services
               </Link>
             </div>
             
@@ -394,7 +394,7 @@ const HomePage = () => {
         <div className="container">
           <div className="section-heading">
             <h2>RÉSERVATION DE TAXI À VERRIÈRES-LE-BUISSON</h2>
-            <p className="subtitle">Un service sur-mesure pour répondre à toutes vos exigences</p>
+            <p className="subtitle">Un service simple et rapide pour réserver votre course</p>
           </div>
           
           <div className={`booking-container fade-in ${bookingVisible ? 'visible' : ''}`}>
@@ -411,8 +411,8 @@ const HomePage = () => {
       >
         <div className="container">
           <div className="section-heading">
-            <h2>NOS PARTENAIRES DE PRESTIGE</h2>
-            <p className="subtitle">Ils nous font confiance pour leurs déplacements à Verrières-le-Buisson et en Île-de-France</p>
+            <h2>ILS NOUS FONT CONFIANCE</h2>
+            <p className="subtitle">Des partenaires satisfaits de nos services de transport</p>
           </div>
           
           <div className={`partners-logos fade-in ${partnersVisible ? 'visible' : ''}`}>
@@ -461,7 +461,7 @@ const HomePage = () => {
             
             <div className="secondary-areas">
               <h3>Transferts aéroports et gares</h3>
-              <p>Nous assurons des transferts premium vers/depuis :</p>
+              <p>Nous assurons des transferts vers/depuis :</p>
               <ul className="areas-list">
                 <li>Aéroport Paris Charles de Gaulle (CDG)</li>
                 <li>Aéroport Paris Orly (ORY)</li>
@@ -503,17 +503,17 @@ const HomePage = () => {
           <div className="faq-container">
             <div className="faq-item">
               <h3>Comment réserver un taxi à Verrières-le-Buisson ?</h3>
-              <p>Vous pouvez réserver notre service de taxi Mercedes Classe V via notre formulaire de réservation en ligne, par téléphone au +33 6 00 00 00 00 ou par email. Nous recommandons de réserver à l'avance pour garantir la disponibilité.</p>
+              <p>Vous pouvez réserver notre service de taxi Mercedes Classe V via notre formulaire en ligne, par téléphone au +33 6 00 00 00 00 ou par email. Nous recommandons de réserver à l'avance pour garantir la disponibilité.</p>
             </div>
             
             <div className="faq-item">
               <h3>Quel est le prix d'une course de taxi avec Mercedes Classe V ?</h3>
-              <p>Nos tarifs dépendent de plusieurs facteurs : distance, durée, horaire et services additionnels. Utilisez notre calculateur en ligne pour obtenir un devis instantané pour votre trajet spécifique.</p>
+              <p>Nos tarifs sont compétitifs et dépendent de plusieurs facteurs : distance, horaire et services additionnels. Utilisez notre calculateur en ligne pour obtenir un devis gratuit pour votre trajet.</p>
             </div>
             
             <div className="faq-item">
               <h3>Le prix inclut-il l'attente en cas de retard de vol ?</h3>
-              <p>Oui, pour les transferts aéroport, nous suivons l'état de votre vol en temps réel et l'attente en cas de retard est incluse dans votre tarif, sans supplément.</p>
+              <p>Oui, pour les transferts aéroport, nous suivons votre vol en temps réel et l'attente en cas de retard est incluse dans votre tarif, sans supplément.</p>
             </div>
             
             <div className="faq-item">
@@ -539,7 +539,7 @@ const HomePage = () => {
         <div className="container">
           <div className="cta-content">
             <h2>Réservez votre taxi à Verrières-le-Buisson</h2>
-            <p>Contactez-nous dès maintenant pour réserver votre expérience de transport avec Mercedes Classe V.</p>
+            <p>Contactez-nous dès maintenant pour réserver votre trajet avec Mercedes Classe V.</p>
             <div className="cta-buttons">
               <Link to="/contact" className="btn btn-primary">
                 Nous contacter

@@ -63,7 +63,7 @@ const LongDistancePage = () => {
             <span className="separator-icon"><i className="fas fa-road"></i></span>
             <span className="separator-line"></span>
           </div>
-          <p className="slide-in-right">Un confort inégalé pour vos voyages en France et en Europe</p>
+          <p className="slide-in-right">Service de taxi confortable pour vos trajets interurbains</p>
         </div>
       </div>
       
@@ -71,22 +71,20 @@ const LongDistancePage = () => {
         <div className="container">
           <div className="service-overview-content">
             <div className="gold-accent slide-in-left">
-              <h2>VOYAGEZ SANS LIMITE, EN TOUT CONFORT</h2>
-              <p className="subtitle">Des trajets sur mesure pour vos déplacements à moyenne et longue distance</p>
+              <h2>VOYAGEZ À TRAVERS LA FRANCE EN TOUTE SÉRÉNITÉ</h2>
+              <p className="subtitle">Des trajets longue distance adaptés à tous vos besoins</p>
             </div>
             
             <div className="overview-text fade-in">
               <p>
-                Notre service de transport longue distance est conçu pour vous offrir une alternative 
-                premium aux transports en commun. Profitez d'un confort inégalé, d'une intimité 
-                totale et d'une flexibilité absolue pour vos déplacements interurbains et 
-                internationaux.
+                Notre service de taxi longue distance vous offre une solution pratique et 
+                confortable pour vos déplacements entre les villes. Plus besoin de vous soucier 
+                des correspondances ou des horaires rigides des transports en commun.
               </p>
               <p>
-                Que vous voyagiez pour affaires ou pour des raisons personnelles, nos véhicules 
-                haut de gamme et nos chauffeurs expérimentés vous garantissent un trajet 
-                relaxant et productif, vous permettant d'arriver à destination dans les 
-                meilleures conditions.
+                Que ce soit pour des déplacements professionnels, familiaux ou touristiques, 
+                notre Mercedes Classe V et nos chauffeurs expérimentés vous assurent un voyage 
+                agréable et sans stress jusqu'à votre destination.
               </p>
             </div>
             
@@ -96,8 +94,8 @@ const LongDistancePage = () => {
                   <i className="fas fa-clock"></i>
                 </div>
                 <div className="feature-content">
-                  <h3>Flexibilité totale</h3>
-                  <p>Voyagez selon votre propre horaire, sans dépendre des plannings de transport public.</p>
+                  <h3>Horaires flexibles</h3>
+                  <p>Départ à l'heure qui vous convient, sans contrainte d'horaire imposé.</p>
                 </div>
               </div>
               
@@ -106,8 +104,8 @@ const LongDistancePage = () => {
                   <i className="fas fa-couch"></i>
                 </div>
                 <div className="feature-content">
-                  <h3>Confort supérieur</h3>
-                  <p>Véhicules spacieux avec sièges ergonomiques pour un voyage reposant, même sur de longues distances.</p>
+                  <h3>Confort assuré</h3>
+                  <p>Véhicule spacieux et bien équipé pour vous garantir un voyage agréable, même sur de longues distances.</p>
                 </div>
               </div>
               
@@ -116,8 +114,8 @@ const LongDistancePage = () => {
                   <i className="fas fa-plug"></i>
                 </div>
                 <div className="feature-content">
-                  <h3>Équipements business</h3>
-                  <p>WiFi haut débit, prises de recharge et conditions idéales pour travailler pendant votre trajet.</p>
+                  <h3>Services à bord</h3>
+                  <p>WiFi gratuit et prises de recharge pour rester connecté durant votre trajet.</p>
                 </div>
               </div>
               
@@ -126,8 +124,8 @@ const LongDistancePage = () => {
                   <i className="fas fa-map-marked-alt"></i>
                 </div>
                 <div className="feature-content">
-                  <h3>Destinations multiples</h3>
-                  <p>Possibilité de faire plusieurs arrêts sur votre trajet ou de créer un itinéraire personnalisé.</p>
+                  <h3>Arrêts possibles</h3>
+                  <p>Possibilité de faire des pauses ou des arrêts intermédiaires selon vos besoins.</p>
                 </div>
               </div>
             </div>
@@ -138,7 +136,7 @@ const LongDistancePage = () => {
       <div className="destinations-section">
         <div className="container">
           <h2>DESTINATIONS POPULAIRES</h2>
-          <p className="subtitle">Nos trajets les plus demandés avec estimations de prix</p>
+          <p className="subtitle">Nos trajets les plus fréquents avec estimation de tarifs</p>
           
           <div className="destinations-grid">
             {destinations.map((destination, index) => (
@@ -168,8 +166,8 @@ const LongDistancePage = () => {
           <div className="destinations-note">
             <p>
               <i className="fas fa-info-circle"></i>
-              Ces prix sont donnés à titre indicatif peuvant varier selon
-              la date, l'heure et le nombre de passagers. Contactez-nous pour un devis personnalisé.
+              Ces tarifs sont indicatifs et peuvent varier selon la date, l'heure et le nombre de passagers. 
+              Contactez-nous pour obtenir un devis précis pour votre trajet.
             </p>
           </div>
         </div>
@@ -179,7 +177,7 @@ const LongDistancePage = () => {
         <div className="container">
           <div className="section-heading">
             <h2>CE QUE DISENT NOS CLIENTS</h2>
-            <p className="subtitle">Témoignages de passagers ayant utilisé notre service longue distance</p>
+            <p className="subtitle">Témoignages de clients ayant utilisé notre service longue distance</p>
           </div>
           
           <div className="testimonial-content">
@@ -187,10 +185,10 @@ const LongDistancePage = () => {
               <i className="fas fa-quote-left"></i>
             </div>
             <p>
-              "J'ai opté pour ce service pour un Paris-Bordeaux et je ne regrette absolument pas mon choix. 
-              Le chauffeur était ponctuel, professionnel et très agréable. La voiture était impeccable et confortable. 
-              J'ai pu travailler tout au long du trajet grâce au WiFi et aux prises de recharge. 
-              Je recommande vivement ce service pour ceux qui recherchent confort et productivité pendant leurs déplacements."
+              "J'ai choisi ce service de taxi pour un trajet Paris-Bordeaux et j'en suis très satisfait. 
+              Le chauffeur était ponctuel et professionnel. Le véhicule était propre et confortable. 
+              J'ai pu me reposer et travailler tranquillement pendant le voyage. 
+              Je recommande ce service pour les longs trajets, c'est vraiment pratique et abordable."
             </p>
             <div className="testimonial-author">
               <div className="author-name">Laurent M.</div>
@@ -204,7 +202,7 @@ const LongDistancePage = () => {
         <div className="container">
           <div className="section-heading">
             <h2>RÉSERVEZ VOTRE TRAJET LONGUE DISTANCE</h2>
-            <p className="subtitle">Un voyage personnalisé pour votre confort</p>
+            <p className="subtitle">Réservation simple et rapide pour votre prochain voyage</p>
           </div>
           
           <div className={`booking-container fade-in ${bookingVisible ? 'visible' : ''}`}>
@@ -216,15 +214,15 @@ const LongDistancePage = () => {
       <div className="cta-banner">
         <div className="container">
           <div className="cta-content">
-            <h3>Besoin d'un trajet sur mesure ou d'un itinéraire complexe ?</h3>
-            <p>Nos conseillers sont à votre disposition pour créer un voyage adapté à vos besoins spécifiques</p>
+            <h3>Besoin d'un trajet vers une autre destination ?</h3>
+            <p>Contactez-nous pour obtenir un devis adapté à votre itinéraire</p>
             <div className="cta-buttons">
               <Link to="/contact" className="btn btn-primary">
-                Demander un devis personnalisé
+                Demander un devis
               </Link>
               <a href="tel:+33600000000" className="btn btn-outline">
                 <i className="fas fa-phone"></i>
-                Appeler maintenant
+                Appeler directement
               </a>
             </div>
           </div>
