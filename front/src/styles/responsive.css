@@ -262,3 +262,276 @@
       contain-intrinsic-size: 1px 800px;
     }
   }
+
+  /* Modifications pour responsive.css */
+
+/* Optimisations responsives */
+@media (max-width: 576px) {
+  html {
+    font-size: 14px;
+  }
+  
+  .section {
+    padding: 40px 0;
+  }
+  
+  .container {
+    padding: 0 12px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+  }
+  
+  h3 {
+    font-size: 1.4rem;
+  }
+  
+  .section-heading h2,
+  .gold-accent h2 {
+    font-size: 1.8rem;
+  }
+  
+  .section-heading .subtitle,
+  .gold-accent .subtitle {
+    font-size: 1rem;
+  }
+  
+  .feature-icon,
+  .service-icon,
+  .highlight-icon,
+  .value-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+  
+  .destination-header h3 {
+    font-size: 1.3rem;
+  }
+  
+  .destination-detail {
+    font-size: 0.9rem;
+  }
+  
+  .destination-button {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+  
+  .airport-card,
+  .station-card {
+    padding: 20px;
+  }
+  
+  .airport-icon,
+  .station-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+  
+  .process-step {
+    padding: 0 10px;
+  }
+  
+  .step-number {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  
+  .step-content h3 {
+    font-size: 1.1rem;
+  }
+  
+  .step-content p {
+    font-size: 0.85rem;
+  }
+  
+  .testimonial-content {
+    padding: 25px;
+  }
+  
+  .testimonial-quote {
+    font-size: 2rem;
+  }
+  
+  .author-name {
+    font-size: 1rem;
+  }
+  
+  .btn, button, 
+  .hero-button, 
+  .service-link, 
+  .contact-btn {
+    padding: 10px 15px;
+    min-height: 44px; /* Meilleure zone de toucher */
+  }
+}
+
+@media (max-width: 768px) {
+  .destinations-grid,
+  .highlights-grid,
+  .airports-grid,
+  .stations-grid,
+  .values-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .service-overview-content,
+  .philosophy-content {
+    padding: 0 10px;
+  }
+  
+  .philosophy-list li {
+    margin-bottom: 15px;
+  }
+  
+  .list-marker {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .hero-buttons,
+  .cta-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .hero-content h1,
+  .service-hero-content h1 {
+    font-size: 1.8rem;
+  }
+  
+  .hero-content p,
+  .service-hero-content p {
+    font-size: 0.9rem;
+  }
+  
+  .service-hero {
+    height: 300px;
+  }
+  
+  .booking-form-container {
+    margin: 0 10px;
+  }
+  
+  .booking-form-header {
+    padding: 15px;
+  }
+  
+  .step-number {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+  }
+  
+  .step-label {
+    display: none;
+  }
+  
+  .booking-step {
+    padding: 20px 15px;
+  }
+}
+
+@media (max-width: 992px) {
+  .overview-text {
+    margin-bottom: 30px;
+  }
+  
+  .service-card {
+    flex: 0 0 100%;
+    max-width: 300px;
+    margin: 0 auto 20px;
+  }
+  
+  .destination-header h3 {
+    font-size: 1.3rem;
+  }
+  
+  .process-steps {
+    flex-wrap: wrap;
+  }
+  
+  .process-steps::before {
+    display: none;
+  }
+  
+  .process-step {
+    flex: 0 0 50%;
+    margin-bottom: 30px;
+  }
+  
+  .testimonial-content {
+    max-width: 100%;
+  }
+  
+  .tabs-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .tab-button {
+    width: 100%;
+  }
+}
+
+/* Optimisations pour les écrans tactiles */
+@media (hover: none) {
+  a, button, .btn, 
+  .contact-btn, 
+  .service-link,
+  .counter-btn {
+    padding: 12px 16px;
+  }
+  
+  .service-card:hover,
+  .value-card:hover,
+  .btn:hover,
+  .destination-card:hover,
+  .airport-card:hover,
+  .station-card:hover {
+    transform: none !important;
+  }
+  
+  .hero-content h1,
+  .service-hero-content h1 {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  }
+}
+
+/* Animation optimisations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Orientations spécifiques */
+@media screen and (orientation: portrait) {
+  .hero-section {
+    height: 85vh;
+  }
+}
+
+@media screen and (orientation: landscape) and (max-width: 992px) {
+  .hero-section {
+    height: 100vh;
+  }
+  
+  .hero-content {
+    padding: 20px 15px;
+  }
+}

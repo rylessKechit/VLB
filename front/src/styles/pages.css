@@ -1055,6 +1055,401 @@
   line-height: 1.6;
 }
 
+/* Modifications pour pages.css */
+
+/* Titres des sections */
+.section-heading h2 {
+  font-size: 2.5rem;
+  color: var(--text-color);
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Destinations populaires */
+.destinations-section {
+  padding: 80px 0;
+  background-color: var(--bg-light);
+}
+
+.destinations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.destination-card {
+  background-color: white;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.destination-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-dark);
+}
+
+.destination-header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 20px;
+}
+
+.destination-header h3 {
+  font-size: 1.5rem;
+  margin: 0;
+  color: white;
+  font-weight: 600;
+}
+
+.destination-content {
+  padding: 25px;
+}
+
+.destination-detail {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  color: var(--text-color);
+}
+
+.destination-detail i {
+  width: 30px;
+  height: 30px;
+  background-color: rgba(212, 175, 55, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  color: var(--primary-color);
+  font-size: 1rem;
+}
+
+.destination-price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+}
+
+.destination-action {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.destination-button {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 12px 25px;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.destinations-note {
+  background-color: rgba(212, 175, 55, 0.1);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  margin-top: 50px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.destinations-note i {
+  font-size: 1.3rem;
+  color: var(--primary-color);
+  margin-right: 15px;
+  margin-top: 3px;
+}
+
+/* Témoignages clients */
+.testimonial-content {
+  background-color: white;
+  border-radius: var(--border-radius-lg);
+  padding: 40px;
+  box-shadow: var(--shadow);
+  margin: 20px auto;
+  max-width: 900px;
+  position: relative;
+}
+
+.testimonial-quote {
+  font-size: 2.5rem;
+  color: rgba(212, 175, 55, 0.2);
+  margin-bottom: 20px;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.author-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.author-title {
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+/* Services de transfert */
+.service-overview {
+  padding: 80px 0;
+  background-color: white;
+}
+
+.service-highlights {
+  margin-top: 50px;
+}
+
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  gap: 30px;
+}
+
+.highlight-item {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background-color: var(--bg-light);
+  border-radius: var(--border-radius);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.highlight-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+}
+
+.highlight-icon {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(212, 175, 55, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.highlight-content h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+/* Aéroports et gares */
+.airports-grid,
+.stations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.airport-card,
+.station-card {
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 30px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.airport-card:hover,
+.station-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-dark);
+}
+
+.airport-icon,
+.station-icon {
+  width: 70px;
+  height: 70px;
+  background-color: rgba(212, 175, 55, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  color: var(--primary-color);
+  font-size: 1.8rem;
+}
+
+.airport-details,
+.station-details {
+  margin: 20px 0;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.detail-item i {
+  color: var(--primary-color);
+  margin-right: 15px;
+  width: 20px;
+  text-align: center;
+}
+
+/* Comment ça fonctionne */
+.process-steps {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+  position: relative;
+}
+
+.process-steps::before {
+  content: '';
+  position: absolute;
+  top: 50px;
+  left: 70px;
+  right: 70px;
+  height: 2px;
+  background-color: #e0e0e0;
+  z-index: 0;
+}
+
+.process-step {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  padding: 0 15px;
+}
+
+.step-number {
+  width: 50px;
+  height: 50px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.step-content h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.step-content p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+/* Notre philosophie */
+.philosophy-section {
+  padding: 80px 0;
+  background-color: var(--bg-light);
+}
+
+.philosophy-content {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.philosophy-image {
+  flex: 1;
+  max-width: 500px;
+}
+
+.philosophy-image img {
+  width: 100%;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.philosophy-text {
+  flex: 1;
+}
+
+.philosophy-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 30px;
+}
+
+.philosophy-list li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 25px;
+}
+
+.list-marker {
+  width: 50px;
+  height: 50px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .destinations-grid,
+  .highlights-grid,
+  .airports-grid,
+  .stations-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .process-steps {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .process-steps::before {
+    display: none;
+  }
+  
+  .philosophy-content {
+    flex-direction: column;
+  }
+  
+  .philosophy-image {
+    max-width: 100%;
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .destinations-grid,
+  .highlights-grid,
+  .airports-grid,
+  .stations-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Responsive styles */
 @media (max-width: 992px) {
   .destinations-grid {
