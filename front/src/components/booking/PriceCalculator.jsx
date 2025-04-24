@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import BookingConfirmation from './BookingConfirmation';
 import BookingSuccess from './BookingSuccess';
-import '../../styles/components/PriceCalculator.css';
 
 const PriceCalculator = ({ estimate, bookingData, onBookNow }) => {
   const [showBreakdown, setShowBreakdown] = useState(false);

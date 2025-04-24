@@ -9,11 +9,11 @@ import ContactPage from './pages/ContactPage';
 import AboutPage from './pages/AboutPage';
 
 import './styles/global.css';
-import './styles/components/VehicleSelector.css';
-import './styles/components/BookingForm.css';
-import './styles/components/BookingSuccess.css';
-import './styles/pages/ServicePage.css';
-import './styles/pages/AboutPage.css';
+import './styles/booking-components.css';
+import './styles/structure-components.css';
+import './styles/pages.css';
+import './styles/responsive.css';
+
 import './animations.js'
 
 function App() {

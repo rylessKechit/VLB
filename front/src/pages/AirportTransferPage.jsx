@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import BookingForm from '../components/booking/BookingForm';
-import '../styles/pages/ServicePage.css';
 import airportTransferHero from '../assets/images/airport-transfer-hero.jpg';
 
 // Animation utility hook

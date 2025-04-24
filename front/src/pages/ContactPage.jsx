@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import '../styles/pages/ContactPage.css';
 import interiorVideo from '../assets/videos/interior-video.mp4';
-//import montageVideo from '../assets/videos/interior.mp4';
 
 
 const ContactPage = () => {

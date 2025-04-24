@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { bookingService } from '../../services/api';
-import '../../styles/components/BookingConfirmation.css';
 
 const BookingConfirmation = ({ bookingData, priceEstimate, onSuccess, onCancel }) => {
   const [customerInfo, setCustomerInfo] = useState({

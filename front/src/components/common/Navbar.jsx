@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import '../../styles/components/Navbar.css';
 
 const Navbar = ({ mobileMenuOpen }) => {
   const [openDropdown, setOpenDropdown] = useState(null);

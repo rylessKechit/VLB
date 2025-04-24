@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
-import logo from '../../assets/images/logo.png'; // Nouveau logo à créer
-import '../../styles/components/Header.css';
+import logo from '../../assets/images/logo.png';
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);

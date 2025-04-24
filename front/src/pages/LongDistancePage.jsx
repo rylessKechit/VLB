@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import BookingForm from '../components/booking/BookingForm';
-import '../styles/pages/ServicePage.css';
 import longDistanceHighway from '../assets/images/long-distance-highway.jpg';
 
 // Animation utility hook
@@ -141,24 +140,30 @@ const LongDistancePage = () => {
           <div className="destinations-grid">
             {destinations.map((destination, index) => (
               <div key={index} className="destination-card">
-                <h3>{destination.name}</h3>
-                <div className="destination-details">
-                  <div className="detail-item">
-                    <i className="fas fa-road"></i>
-                    <span>{destination.distance}</span>
+                <div className="destination-header">
+                  <h3 className='arrow'>{destination.name}</h3>
+                </div>
+                <div className="destination-content">
+                  <div className="destination-detail">
+                    <div className="detail-item">
+                      <i className="fas fa-road"></i>
+                      <span>{destination.distance}</span>
+                    </div>
+                    <div className="destination-detail">
+                      <i className="fas fa-clock"></i>
+                      <span>{destination.time}</span>
+                    </div>
+                    <div className="destination-price">
+                      <i className="fas fa-tag"></i>
+                      <span>{destination.estimatedPrice}</span>
+                    </div>
                   </div>
-                  <div className="detail-item">
-                    <i className="fas fa-clock"></i>
-                    <span>{destination.time}</span>
-                  </div>
-                  <div className="detail-item price">
-                    <i className="fas fa-tag"></i>
-                    <span>{destination.estimatedPrice}</span>
+                  <div className="destination-action">
+                    <Link to="/contact" className="destination-button">
+                      Demander un devis
+                    </Link>
                   </div>
                 </div>
-                <Link to="/contact" className="destination-button">
-                  Demander un devis
-                </Link>
               </div>
             ))}
           </div>

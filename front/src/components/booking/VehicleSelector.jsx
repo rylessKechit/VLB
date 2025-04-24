@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import '../../styles/components/VehicleSelector.css';
 
 const VehicleSelector = ({ vehicles, selectedVehicle, onSelect, passengers, luggage }) => {
   const [showDetails, setShowDetails] = useState(null);

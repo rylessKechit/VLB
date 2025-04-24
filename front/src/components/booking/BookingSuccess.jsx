@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../../styles/components/BookingSuccess.css';
 
 const BookingSuccess = ({ bookingData }) => {
   const [showPrintVersion, setShowPrintVersion] = useState(false);

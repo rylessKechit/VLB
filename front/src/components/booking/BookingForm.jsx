@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import AddressInput from './AddressInput';
 import DateTimePicker from './DateTimePicker';
 import BookingSuccess from './BookingSuccess';
-import '../../styles/components/BookingForm.css';
 import { priceService } from '../../services/api';
 
 const BookingForm = () => {

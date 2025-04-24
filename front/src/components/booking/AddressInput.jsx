@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import '../../styles/components/AddressInput.css';
 
 const AddressInput = ({ id, value, onChange, onSelect, placeholder }) => {
   const inputRef = useRef(null);

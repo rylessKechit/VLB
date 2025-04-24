@@ -1,0 +1,264 @@
+/* 
+  Optimisations responsives améliorées
+  Ce fichier contient des optimisations spécifiques pour améliorer
+  l'expérience mobile sur l'ensemble de l'application
+*/
+
+/* Variables de taille d'écran */
+:root {
+    --breakpoint-xs: 576px;
+    --breakpoint-sm: 768px;
+    --breakpoint-md: 992px;
+    --breakpoint-lg: 1200px;
+  }
+  
+  /* Corrections pour les petits appareils */
+  @media (max-width: 576px) {
+    /* Réduire la taille des polices */
+    html {
+      font-size: 14px;
+    }
+    
+    /* Ajuster les sections pour plus de compacité */
+    .section {
+      padding: 25px 0;
+    }
+    
+    /* Optimiser les padding pour écrans étroits */
+    .container {
+      padding: 0 12px;
+    }
+    
+    /* Réduire les marges des éléments */
+    .mb-1, .mb-2, .mb-3, .mb-4,
+    .mt-1, .mt-2, .mt-3, .mt-4 {
+      margin: 0.5rem 0;
+    }
+    
+    /* Réduire l'espacement des icônes */
+    .feature-icon,
+    .service-icon,
+    .contact-item i {
+      width: 50px;
+      height: 50px;
+      font-size: 1.2rem;
+    }
+    
+    /* Adaptations pour les formulaires */
+    .text-input, 
+    .form-group select, 
+    .form-group textarea {
+      padding: 10px 12px;
+    }
+    
+    /* Assurer une bonne lisibilité des prix */
+    .price-range .price {
+      font-size: 1.2rem;
+    }
+  }
+  
+  /* Corrections pour les tablettes en mode portrait */
+  @media (max-width: 768px) {
+    /* Corrections formulaires */
+    .form-row.two-columns {
+      display: block;
+    }
+    
+    /* Amélioration du menu mobile */
+    .navbar.mobile-open {
+      padding-bottom: 30px;
+    }
+    
+    /* Amélioration des cartes et sections */
+    .service-card,
+    .feature-item,
+    .value-card,
+    .destination-card {
+      margin-bottom: 15px;
+    }
+    
+    /* Fluidité des grilles */
+    .overview-features,
+    .values-grid,
+    .destinations-grid {
+      display: block;
+    }
+    
+    /* Corrections espacement */
+    .vehicle-features-list,
+    .areas-list {
+      column-count: 1;
+    }
+    
+    /* Améliorations de l'interaction */
+    .btn, button, 
+    .hero-button, 
+    .service-link, 
+    .contact-btn {
+      padding: 12px 16px;
+      min-height: 44px; /* Meilleure zone de toucher */
+    }
+    
+    /* Améliorer l'affichage des images */
+    .vehicle-image img,
+    .experience-image img,
+    .story-image img {
+      max-height: 300px;
+      object-fit: cover;
+    }
+    
+    /* Gestion pour les sections avec contenu dense */
+    .client-testimonial,
+    .faq-section {
+      padding: 50px 0;
+    }
+    
+    /* Correction pour l'affichage des témoignages */
+    .testimonial-card {
+      margin: 10px auto;
+    }
+    
+    /* Améliorations des boutons CTA */
+    .cta-buttons .btn {
+      width: 100%;
+    }
+    
+    /* Corriger l'espacement du footer */
+    .footer-links {
+      padding: 0 15px;
+    }
+  }
+  
+  /* Corrections pour les tablettes en mode paysage et petits laptops */
+  @media (min-width: 769px) and (max-width: 992px) {
+    /* Améliorer le layout des grilles */
+    .overview-features,
+    .values-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Corriger le flux des cards */
+    .services-grid {
+      justify-content: space-around;
+    }
+    
+    /* Améliorer le layout du header */
+    .contact-buttons .contact-btn {
+      padding: 6px 10px;
+    }
+    
+    /* Ajustement des conteneurs */
+    .container {
+      max-width: 900px;
+    }
+  }
+  
+  /* Corrections critiques pour la navigation */
+  @media (max-width: 992px) {
+    /* Améliorer la visibilité du header */
+    .header.scrolled {
+      background-color: #2c3e50;
+    }
+    
+    /* Optimiser l'icône du menu */
+    .mobile-menu-toggle {
+      margin-left: 10px;
+    }
+    
+    /* Rendre la recherche de prix plus accessible */
+    .toggle-breakdown,
+    .book-now-button,
+    .contact-driver-button {
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+  }
+  
+  /* Optimisations pour les écrans tactiles sur l'ensemble de l'application */
+  @media (hover: none) {
+    /* Augmenter la taille des zones interactives */
+    a, button, .btn, 
+    .contact-btn, 
+    .service-link,
+    .counter-btn {
+      padding: 12px 16px;
+    }
+    
+    /* Supprimer les effets de survol qui pourraient créer de la confusion */
+    .service-card:hover,
+    .value-card:hover,
+    .btn:hover {
+      transform: none;
+    }
+    
+    /* Améliorer la lisibilité sur les écrans brillants */
+    .hero-content h1,
+    .service-hero-content h1 {
+      text-shadow: 3px 3px 5px rgba(0,0,0,0.5);
+    }
+  }
+  
+  /* Corrections communes pour les appareils à haute résolution */
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    /* Améliorer la netteté des bordures fines */
+    .separator-line,
+    .testimonial-dots button,
+    .footer::before {
+      transform: translateZ(0);
+    }
+  }
+  
+  /* Améliorations spécifiques de performance pour les appareils mobiles */
+  .optimize-mobile {
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+  
+  /* Corrections d'accessibilité */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    
+    .scroll-down-button {
+      animation: none !important;
+    }
+  }
+  
+  /* Corrections spécifiques pour l'orientation des appareils */
+  @media screen and (orientation: portrait) {
+    .hero-section {
+      height: 85vh;
+    }
+  }
+  
+  @media screen and (orientation: landscape) and (max-width: 992px) {
+    .hero-section {
+      height: 100vh;
+    }
+    
+    .hero-content {
+      padding: 20px 15px;
+    }
+    
+    .hero-buttons {
+      flex-direction: row;
+    }
+  }
+  
+  /* Optimisations de rendering pour les appareils à faible puissance */
+  @media (max-width: 768px) {
+    body {
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 5000px;
+    }
+    
+    .footer, .service-overview, .section {
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 800px;
+    }
+  }

@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import '../../styles/components/DateTimePicker.css';
 
 const DateTimePicker = ({ 
   dateId, 

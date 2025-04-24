@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet'; // Importez Helmet pour gérer les métadonnées
 import BookingForm from '../components/booking/BookingForm';
-import '../styles/pages/HomePage.css';
 import headerImage from '../assets/images/header-image.jpg';
 import mercedesVClass from '../assets/images/mercedes-v-class.jpg';
 import vipExperience from '../assets/images/vip-experience.jpg';
@@ -539,7 +538,7 @@ const HomePage = () => {
         <div className="container">
           <div className="cta-content">
             <h2>Réservez votre taxi à Verrières-le-Buisson</h2>
-            <p>Contactez-nous dès maintenant pour réserver votre trajet avec Mercedes Classe V.</p>
+            <p style={{color: 'var(--text-light)'}}>Contactez-nous dès maintenant pour réserver votre trajet avec Mercedes Classe V.</p>
             <div className="cta-buttons">
               <Link to="/contact" className="btn btn-primary">
                 Nous contacter
