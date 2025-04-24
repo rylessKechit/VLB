@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import logo from '../../assets/images/logo.png'; // Adjust the path as necessary
+import logo from '../../assets/images/logo.webp'; // Adjust the path as necessary
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();

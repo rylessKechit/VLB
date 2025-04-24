@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import BookingForm from '../components/booking/BookingForm';
-import longDistanceHighway from '../assets/images/long-distance-highway.jpg';
+import longDistanceHighway from '../assets/images/long-distance-highway.webp';
 
 // Animation utility hook
 const useIntersectionObserver = (options = {}) => {

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import aboutHero from '../assets/images/about-hero.jpg';
-import aboutPhilosophy from '../assets/images/about-philosophy.jpg';
+import aboutHero from '../assets/images/about-hero.webp';
+import aboutPhilosophy from '../assets/images/about-philosophy.webp';
 
 // Animation utility hook
 const useIntersectionObserver = (options = {}) => {
@@ -79,25 +79,25 @@ const AboutPage = () => {
       name: "Pierre Guttin",
       position: "Fondateur",
       bio: "Avec plus de 15 ans d'expérience dans le transport, Pierre a fondé Taxi VLB avec la vision d'offrir un service de taxi fiable et accessible à tous.",
-      image: "/assets/images/team-founder.jpg"
+      image: "/assets/images/team-founder.webp"
     },
     {
       name: "Sophie Lambert",
       position: "Responsable des Réservations",
       bio: "Sophie gère les réservations et s'assure que chaque client bénéficie d'un service ponctuel et professionnel.",
-      image: "/assets/images/team-operations.jpg"
+      image: "/assets/images/team-operations.webp"
     },
     {
       name: "Alexandre Dupont",
       position: "Responsable Service Client",
       bio: "Alexandre et son équipe sont à votre écoute pour répondre à toutes vos questions et demandes.",
-      image: "/assets/images/team-customer.jpg"
+      image: "/assets/images/team-customer.webp"
     },
     {
       name: "Marie Lefèvre",
       position: "Responsable des Chauffeurs",
       bio: "Marie forme nos chauffeurs pour garantir un service professionnel et une conduite sûre.",
-      image: "/assets/images/team-drivers.jpg"
+      image: "/assets/images/team-drivers.webp"
     }
   ];
 
@@ -147,7 +147,7 @@ const AboutPage = () => {
               </p>
             </div>
             <div className="story-image slide-in-right">
-              <img src="/assets/images/about-founder.jpg" alt="Notre équipe" />
+              <img src="/assets/images/about-founder.webp" alt="Notre équipe" />
             </div>
           </div>
           

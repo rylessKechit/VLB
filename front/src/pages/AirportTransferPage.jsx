@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import BookingForm from '../components/booking/BookingForm';
-import airportTransferHero from '../assets/images/airport-transfer-hero.jpg';
+import airportTransferHero from '../assets/images/airport-transfer-hero.webp';
 
 // Animation utility hook
 const useIntersectionObserver = (options = {}) => {

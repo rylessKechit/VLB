@@ -2,14 +2,14 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet'; // Importez Helmet pour gérer les métadonnées
 import BookingForm from '../components/booking/BookingForm';
-import headerImage from '../assets/images/header-image.jpg';
-import mercedesVClass from '../assets/images/mercedes-v-class.jpg';
-import vipExperience from '../assets/images/vip-experience.jpg';
-import logoAirFRance from '../assets/images/logo-air-france.png';
-import logoCannesFestival from '../assets/images/logo-cannes-festival.png';
-import logoLouisVuitton from '../assets/images/logo-louis-vuitton.png';
-import logoChanel from '../assets/images/logo-chanel.png';
-import logoRitzParis from '../assets/images/logo-ritz-paris.png';
+import headerImage from '../assets/images/header-image.webp';
+import mercedesVClass from '../assets/images/mercedes-v-class.webp';
+import vipExperience from '../assets/images/vip-experience.webp';
+import logoAirFRance from '../assets/images/logo-air-france.webp';
+import logoCannesFestival from '../assets/images/logo-cannes-festival.webp';
+import logoLouisVuitton from '../assets/images/logo-louis-vuitton.webp';
+import logoChanel from '../assets/images/logo-chanel.webp';
+import logoRitzParis from '../assets/images/logo-ritz-paris.webp';
 
 // Animation utility
 const useIntersectionObserver = (options = {}) => {
